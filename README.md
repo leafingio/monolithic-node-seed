@@ -69,21 +69,25 @@ the modules folder
 
 ### Send
 The send feature/middleware is built to generate the same response always:
-`{
+```javascript
+{
   status_code: XXX,
   message: 'message X',
   data: {}
-}`
+}
+```
 The middleware will know when to send an error or success because we will generate errors inside the request object of
 the methods callbacks/middlewares/validators/controllers. It will be explained in the following lines inside the
 Flow control section
 
 ### Flow control
 All the middlewares must start with:
-`if(!req.error){  
+```javascript
+if(!req.error){  
 
 }
-next()`
+next()
+```
 and you must put your logic inside the if. That is because if req.error exists, it will go to the next middleware until arrives to the Send middleware. (see Post example)
 If you detect some error, you must assign the code to req.error (req.error = 404), the message (req.errorMessage = 'Not found') and the data (req.errorData = {}). With this way, the error will go next to the Send middleware and return an error response.
 
