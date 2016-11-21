@@ -90,6 +90,8 @@ next()
 ```
 and you must put your logic inside the if. That is because if req.error exists, it will go to the next middleware until arrives to the Send middleware. (see Post example)
 If you detect some error, you must assign the code to req.error (req.error = 404), the message (req.errorMessage = 'Not found') and the data (req.errorData = {}). With this way, the error will go next to the Send middleware and return an error response.
+Otherwise, if there's not an error and you want to send data, assign the response to req.response and the middleware will create a 200 response code, with a Success message and the req.response assigned to the data field of the response.
+Feel free to use res.json or res.send and avoid this middleware.
 
 ### Response-Type
 Using this header, you can receive the response in different ways:
