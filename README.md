@@ -92,4 +92,17 @@ Using this header, you can receive the response in different ways:
 * `application/json` will send json
 * `application/xml` will send json parsed to xml
 
+### Work Flow
+
+## Create module
+You can add functionality to you API creating a new folder inside modules (for example Post).
+It can be separated in:
+* controllers.js (where all logic goes)
+* routes.js (where all routes goes and decides which controllers-permissions-validations needs).
+* schemas.js (where all mongoose schemas goes)
+* forms.js (where all parameter validation goes (see Post))
+* permissions.js (where all permissions goes)
+
+After that, you can include your routes inside the generic routes.js (./server/routes.js) calling them with the moduleRequire indicating the routes file of the module.
+
 ## To be continued...
