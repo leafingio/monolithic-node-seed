@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/server.js"
   },
-  "author": "imuble",
-  "license": "ISC",
+  "author": "leafingio",
+  "license": "none",
   "dependencies": {
     "bcryptjs": "^2.3.0",
     "bluebird": "^3.3.5",
