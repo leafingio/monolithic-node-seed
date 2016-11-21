@@ -1,0 +1,7 @@
+{
+    "preset": "airbnb",
+    "validateIndentation": false,
+    "requireSpacesInAnonymousFunctionExpression": false,
+    "requireSpaceAfterKeywords": false,
+    "requireDotNotation": false
+}
