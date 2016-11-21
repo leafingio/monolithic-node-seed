@@ -16,6 +16,7 @@ enable or disable and some others that eliminates boilerplate during development
 
 ### Required tools
 * [Node and npm](http://nodejs.org)
+* [MongoDB](http://mongodb.com)
 * [Grunt](http://gruntjs.com)
 
 ### Installation
@@ -31,3 +32,64 @@ If you have any questions about the build or project structure please check out 
 
 ## Support
 For any additional information please contact with [Albert Parrón](mailto:al.parron@gmail.com).
+
+## Configuration
+
+### Features
+To enable or disable features go to config/features.config.js and change the variables
+When you start the API you will see the log that outputs enabled features
+
+### Environment
+To change the environment go to config/server.config.js and change the environment variable.
+There are 2 environment setups:
+* 'dev'
+* (other)
+Using dev, the logs will output in the console, otherwise will generate log files inside the log folder. (if
+log folder doesn't exist, the api will create it automatically).
+Also the environment setup will set the MongoDB url specified inside config/db.config.js
+
+### Documentation
+To generate the api documentation you need to run `grunt`. If you want to extend the api documentation, just follow
+the way that is generated the sample documentation:
+* Go to module
+* Create routes.doc.js
+* Describe the routes using Apidocs specification
+With this way, you can separate concerns in order to get the code clear and without noise. You can use your own style
+because grunt will take care to read all the files to find the documentation specification.
+
+## Leafing features
+
+### Require
+I've added two other ways to require libraries inside the project:
+1. `var { Send } = rootRequire('leafing');``
+With this way, you can import the Leafing features that I have added to the project without the '../../../..''
+2. `var PostRouter = moduleRequire('Post/routes');`
+With this other way you can import your modules without the '../../../..' because it goes to read directly to
+the modules folder
+
+## Send
+The send feature/middleware is built to generate the same response always:
+`{
+  status_code: XXX,
+  message: 'message X',
+  data: {}
+}`
+The middleware will know when to send an error or success because we will generate errors inside the request object of
+the methods callbacks/middlewares/validators/controllers. It will be explained in the following lines inside the
+Flow control section
+
+## Flow control
+All the middlewares must start with:
+`if(!req.error){  
+
+}
+next()`
+and you must put your logic inside the if. That is because if req.error exists, it will go to the next middleware until arrives to the Send middleware. (see Post example)
+If you detect some error, you must assign the code to req.error (req.error = 404), the message (req.errorMessage = 'Not found') and the data (req.errorData = {}). With this way, the error will go next to the Send middleware and return an error response.
+
+## Response-Type
+Using this header, you can receive the response in different ways:
+* `application/json` will send json
+* `application/xml` will send json parsed to xml
+
+## To be continued...
