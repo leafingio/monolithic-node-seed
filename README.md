@@ -67,7 +67,7 @@ With this way, you can import the Leafing features that I have added to the proj
 With this other way you can import your modules without the '../../../..' because it goes to read directly to
 the modules folder
 
-## Send
+### Send
 The send feature/middleware is built to generate the same response always:
 `{
   status_code: XXX,
@@ -78,7 +78,7 @@ The middleware will know when to send an error or success because we will genera
 the methods callbacks/middlewares/validators/controllers. It will be explained in the following lines inside the
 Flow control section
 
-## Flow control
+### Flow control
 All the middlewares must start with:
 `if(!req.error){  
 
@@ -87,14 +87,14 @@ next()`
 and you must put your logic inside the if. That is because if req.error exists, it will go to the next middleware until arrives to the Send middleware. (see Post example)
 If you detect some error, you must assign the code to req.error (req.error = 404), the message (req.errorMessage = 'Not found') and the data (req.errorData = {}). With this way, the error will go next to the Send middleware and return an error response.
 
-## Response-Type
+### Response-Type
 Using this header, you can receive the response in different ways:
 * `application/json` will send json
 * `application/xml` will send json parsed to xml
 
-### Work Flow
+## Work Flow
 
-## Create module
+### Create module
 You can add functionality to you API creating a new folder inside modules (for example Post).
 It can be separated in:
 * controllers.js (where all logic goes)
