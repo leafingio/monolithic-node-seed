@@ -36,7 +36,7 @@ For any additional information please contact with [Albert Parrón](mailto:al.pa
 ## Configuration
 
 ### Features
-To enable or disable features go to config/features.config.js and change the variables
+To enable or disable features go to config/features.config.js and change the variables.
 When you start the API you will see the log that outputs enabled features
 
 ### Environment
@@ -53,7 +53,7 @@ To generate the api documentation you need to run `grunt`. If you want to extend
 the way that is generated the sample documentation:
 * Go to module
 * Create routes.doc.js
-* Describe the routes using Apidocs specification
+* Describe the routes using Apidocs specification.
 With this way, you can separate concerns in order to get the code clear and without noise. You can use your own style
 because grunt will take care to read all the files to find the documentation specification.
 
@@ -61,9 +61,9 @@ because grunt will take care to read all the files to find the documentation spe
 
 ### Require
 I've added two other ways to require libraries inside the project:
-1. `var { Send } = rootRequire('leafing');``
+* `var { Send } = rootRequire('leafing');``
 With this way, you can import the Leafing features that I have added to the project without the '../../../..''
-2. `var PostRouter = moduleRequire('Post/routes');`
+* `var PostRouter = moduleRequire('Post/routes');`
 With this other way you can import your modules without the '../../../..' because it goes to read directly to
 the modules folder
 
