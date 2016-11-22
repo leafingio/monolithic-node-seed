@@ -20,6 +20,7 @@
     "file-stream-rotator": "0.0.7",
     "fs": "0.0.1-security",
     "helmet": "^3.1.0",
+    "joi": "^10.0.1",
     "js2xmlparser": "^2.0.2",
     "jsonwebtoken": "^7.0.0",
     "mongoose": "^4.4.15",

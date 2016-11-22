@@ -7,7 +7,7 @@ var postSchema = new mongoose.Schema({
   updated: { type: Date, default: Date.now },
   status: { type: Boolean, default: true },
   display: { type: Boolean, default: true },
-  type: { type: String, required: true },
+  type: { type: String, default: 'post' },
 
   // owner = models.ForeignKey('auth.User', related_name='posts', on_delete=models.CASCADE)
 });

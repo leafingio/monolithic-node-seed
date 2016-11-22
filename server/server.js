@@ -20,6 +20,7 @@ var helmet = require('helmet');
 var cors = require('cors');
 var featuresConfig = require('./config/features.config');
 var serverConfig = require('./config/server.config');
+var { Send } = rootRequire('leafing');
 
 var dbConfig = require('./config/db.config');
 if(mongoose.connection.readyState === 0) {
@@ -54,7 +55,7 @@ if(featuresConfig.LOGS) {
 	else app.use(morgan('combined', { stream: accessLogStream }));
 }
 
-if(featuresConfig.API) app.use('/api', router());
+if(featuresConfig.API) app.use('/api', router(), Send);
 if(featuresConfig.DOCUMENTATION) app.use('/docs', express.static(__dirname + '/apidoc'));
 
 var port = 8080;
