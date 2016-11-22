@@ -88,15 +88,42 @@ the methods callbacks/middlewares/validators/controllers using `Boom` or `Ok`. I
 All the middlewares must start with:
 ```javascript
 if(!req.error){  
-  // if error
-  Boom.badRequest(req, 'message', 'data')
-  // if success
-  Ok(req, {text:'hello'})
+
 } else next()
 ```
 and you must put your logic inside the if. That is because if req.error exists (created with Boom), it will go to the next middleware until arrives to the Send middleware. (see Post example)
 If you detect some error, you must use `Boom` to generate the error. With this way, the error will go next to the Send middleware and return an error response.
 Otherwise, if there's not an error and you want to send data, use `Ok` passing the data and the middleware will create a 200 response code, with a Success message and the data to send.
+
+#### Good way
+```javascript
+function controller(req, res, next){
+  if(!req.error){  
+    // Some stuff
+    // If stuff error
+    if(errStuff) Boom.badRequest(req, 'message', 'data')
+    else Ok(req, {text:'hello'})
+    // go to Send middleware
+    next()
+  } else next()
+}
+```
+
+#### Bad way
+```javascript
+function controller(req, res, next){
+  if(!req.error){  
+    // Some stuff
+    // If stuff error
+    if(errStuff) Boom.badRequest(req, 'message', 'data')
+    else Ok(req, {text:'hello'})
+  }
+  next()
+}
+```
+The bad way is because if you use some promise based function like mongoose save, the `next()` will trigger before save.
+The best way is to call `next()` when it is done or if there's not an error comming from the upper middleware.
+
 Feel free to use res.json or res.send and avoid this middleware.
 
 ### Response-Type
