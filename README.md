@@ -88,7 +88,10 @@ the methods callbacks/middlewares/validators/controllers using `Boom` or `Ok`. I
 All the middlewares must start with:
 ```javascript
 if(!req.error){  
-
+  // if error
+  Boom.badRequest(req, 'message', 'data')
+  // if success
+  Ok(req, {text:'hello'})
 } else next()
 ```
 and you must put your logic inside the if. That is because if req.error exists (created with Boom), it will go to the next middleware until arrives to the Send middleware. (see Post example)
