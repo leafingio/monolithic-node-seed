@@ -9,7 +9,7 @@ var { CreateController } = require('./controllers');
 module.exports = function () {
 
 	router.post('/',
-    FormValidator(createForm),
+    // FormValidator(createForm),
     CreateController,
     Send);
 

@@ -1,22 +1,7 @@
 var js2xmlparser = require('js2xmlparser');
 
-var errGen = (req) => {
-  var err = {
-    status_code: req.error,
-    message: req.errorMessage,
-    data: req.errorData,
-  };
-  return err;
-};
-
-var successGen = (req) => {
-  var succ =  {
-    status_code: 200,
-    message: 'Success',
-    data: req.response,
-  };
-  return succ;
-};
+var errGen = (req) => req.error;
+var successGen = (req) => req.response;
 
 module.exports = (req, res, data) => {
   switch(req.headers['response-type']){

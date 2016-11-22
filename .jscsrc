@@ -3,5 +3,6 @@
     "validateIndentation": false,
     "requireSpacesInAnonymousFunctionExpression": false,
     "requireSpaceAfterKeywords": false,
-    "requireDotNotation": false
+    "requireDotNotation": false,
+    "maximumLineLength": false,
 }

@@ -11,6 +11,11 @@ enable or disable and some others that eliminates boilerplate during development
 * Documentation (using Apidocs and Grunt)
 * CRUD examples
 * Authentication with email/user and password
+* Helmet (Security with headers)
+* CORS enabled
+* Joi (Post and get parameters validation)
+* Boom (Own wrapper for error objects)
+* Ok (Success objects)
 
 ## Setup
 
@@ -68,29 +73,27 @@ With this other way you can import your modules without the '../../../..' becaus
 the modules folder
 
 ### Send
-The send feature/middleware is built to generate the same response always:
+The send feature/middleware is built to generate the response after Boom or Ok and next():
 ```javascript
 {
-  status_code: XXX,
+  statusCode: XXX,
   message: 'message X',
   data: {}
 }
 ```
 The middleware will know when to send an error or success because we will generate errors inside the request object of
-the methods callbacks/middlewares/validators/controllers. It will be explained in the following lines inside the
-Flow control section
+the methods callbacks/middlewares/validators/controllers using `Boom` or `Ok`. It will be explained in the following lines inside the Flow control section
 
 ### Flow control
 All the middlewares must start with:
 ```javascript
 if(!req.error){  
 
-}
-next()
+} else next()
 ```
-and you must put your logic inside the if. That is because if req.error exists, it will go to the next middleware until arrives to the Send middleware. (see Post example)
-If you detect some error, you must assign the code to req.error (req.error = 404), the message (req.errorMessage = 'Not found') and the data (req.errorData = {}). With this way, the error will go next to the Send middleware and return an error response.
-Otherwise, if there's not an error and you want to send data, assign the response to req.response and the middleware will create a 200 response code, with a Success message and the req.response assigned to the data field of the response.
+and you must put your logic inside the if. That is because if req.error exists (created with Boom), it will go to the next middleware until arrives to the Send middleware. (see Post example)
+If you detect some error, you must use `Boom` to generate the error. With this way, the error will go next to the Send middleware and return an error response.
+Otherwise, if there's not an error and you want to send data, use `Ok` passing the data and the middleware will create a 200 response code, with a Success message and the data to send.
 Feel free to use res.json or res.send and avoid this middleware.
 
 ### Response-Type

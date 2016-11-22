@@ -1,2 +1,4 @@
 exports.FormValidator = require('./formValidator');
-exports.Send = require('./Send');
+exports.Send = require('./send');
+exports.Boom = require('./boom');
+exports.Ok = require('./ok');

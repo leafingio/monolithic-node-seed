@@ -16,7 +16,8 @@ var morgan = require('morgan');
 var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
-
+var helmet = require('helmet');
+var cors = require('cors');
 var featuresConfig = require('./config/features.config');
 var serverConfig = require('./config/server.config');
 
@@ -31,6 +32,8 @@ if(mongoose.connection.readyState === 0) {
 };
 
 // app.use('/public', express.static(path.join(__dirname, '../public')));
+app.use(helmet());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

@@ -60,8 +60,10 @@ var funcs = {
 function validate(req, field, func) {
   var a = funcs[func.split('_')[0]](req, req.body[field], field);
   if(a.error) {
-    req.error = 400;
-    req.errorMessage = errorMessage(req);
+    req.error = {
+      code: 400,
+      message: errorMessage(req),
+    };
     a.field = field;
     return a;
   }
@@ -79,7 +81,7 @@ module.exports = (val) => (req, res, next) => {
 		}
 	};
 
-	req.errorData = errorParams;
+	req.error.data = errorParams;
 
 	next();
 };
