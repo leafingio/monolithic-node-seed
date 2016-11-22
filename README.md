@@ -82,7 +82,10 @@ The send feature/middleware is built to generate the response after Boom or Ok a
 }
 ```
 The middleware will know when to send an error or success because we will generate errors inside the request object of
-the methods callbacks/middlewares/validators/controllers using `Boom` or `Ok`. It will be explained in the following lines inside the Flow control section
+the methods callbacks/middlewares/validators/controllers using `Boom` or `Ok`. It will be explained in the following lines inside the Flow control section. You can remove this middleware inside `server.js`.
+
+### Form validation
+The form validation middleware (see Post's 'CreateForm' for examples) validates all the required parameters for the request using Joi. If there's an error, generate the error with `Boom`. Then use `next()` even if there's no errors and you will continue the execution to the next middleware.
 
 ### Flow control
 All the middlewares must start with:
