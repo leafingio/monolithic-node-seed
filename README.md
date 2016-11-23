@@ -127,7 +127,7 @@ function controller(req, res, next){
 The bad way is because if you use some promise based function like mongoose save, the `next()` will trigger before save.
 The best way is to call `next()` when it is done or if there's not an error comming from the upper middleware.
 
-Feel free to use res.json or res.send and avoid this middleware.
+Feel free to use res.json or res.send and avoid this middleware. (Remember to remove it form the `server.js` file)
 
 ### Response-Type
 Using this header, you can receive the response in different ways:

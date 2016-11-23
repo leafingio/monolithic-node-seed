@@ -7,20 +7,15 @@ global.moduleRequire = function(name) {
 };
 
 var express = require('express');
-var router = require('./routes');
 var chalk = require('chalk');
 var mongoose = require('mongoose');
-var fs = require('fs');
-var FileStreamRotator = require('file-stream-rotator');
 var morgan = require('morgan');
-var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
 var helmet = require('helmet');
 var cors = require('cors');
 var featuresConfig = require('./config/features.config');
 var serverConfig = require('./config/server.config');
-var { Send } = rootRequire('leafing');
 
 var dbConfig = require('./config/db.config');
 if(mongoose.connection.readyState === 0) {
@@ -34,11 +29,14 @@ if(mongoose.connection.readyState === 0) {
 
 // app.use('/public', express.static(path.join(__dirname, '../public')));
 app.use(helmet());
-app.use(cors());
+if(featuresConfig.CORS) app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 if(featuresConfig.LOGS) {
+	var fs = require('fs');
+	var FileStreamRotator = require('file-stream-rotator');
+
 	var logDirectory = __dirname + '/log';
 
 	// ensure log directory exists
@@ -55,13 +53,33 @@ if(featuresConfig.LOGS) {
 	else app.use(morgan('combined', { stream: accessLogStream }));
 }
 
-if(featuresConfig.API) app.use('/api', router(), Send);
+if(featuresConfig.API) {
+	var router = require('./routes');
+	if(featuresConfig.SEND_MIDDLEWARE) {
+		var { Send } = rootRequire('leafing');
+		app.use('/api', router(), Send);
+	} else app.use('/api', router());
+}
+
 if(featuresConfig.DOCUMENTATION) app.use('/docs', express.static(__dirname + '/apidoc'));
+
+if(featuresConfig.GRAPHQL) {
+	var { getSchema } = require('@risingstack/graffiti-mongoose');
+	var graffiti = require('@risingstack/graffiti');
+	var Post = moduleRequire('Post/schemas');
+
+	app.use(graffiti.express({
+		schema: getSchema([Post]),
+	}));
+};
 
 var port = 8080;
 app.listen(port, function () {
 	console.log(chalk.bold.underline.green('Server is now listening at port ', port));
 	if(featuresConfig.API) console.log(chalk.cyan('- API', 'Activated'));
+	if(featuresConfig.CORS) console.log(chalk.cyan('- CORS', 'Activated'));
+	if(featuresConfig.API && featuresConfig.SEND_MIDDLEWARE) console.log(chalk.cyan('- Send Middleware', 'Activated'));
+	if(featuresConfig.GRAPHQL) console.log(chalk.cyan('- GraphQL', 'Activated'));
 	if(featuresConfig.DOCUMENTATION) console.log(chalk.cyan('- Documentation', 'Activated'));
 	if(featuresConfig.LOGS) console.log(chalk.cyan('- Logs', 'Activated'));
 });
