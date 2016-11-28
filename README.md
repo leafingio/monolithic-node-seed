@@ -51,11 +51,13 @@ There are 3 environment setups:
 * dev (you own computer)
 * test (testing server)
 * prod (production server)
+
 I've used dotenv to configure the environment variables with preload. This means that when you start the server with npm it will
 load automatically the correct variables based on the SERVER_ENVIRONMENT variable and put them inside process.env[VARIABLE].
 You can configure your server options inside this file or you can extend them.
 In order to extend the environment variables, follow de .env template and load them in your JS files as 
 process.env[process.env.SERVER_ENVIRONMENT + '_your_variable'].
+
 ** Remember not to commit your .env file into version control, it will expose your credentials in open source projects **
 
 ### Documentation
