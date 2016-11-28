@@ -3,8 +3,6 @@ var User = require('./schemas');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var validator = require('validator');
-var serverConfig = require('../../config/server.config');
-var tokenConfig = require('../../config/token.config');
 
 var tokenConstants = {
   TYPES: {
@@ -105,14 +103,14 @@ exports.SignTokenController = (req, res, next) => {
 		userVersion: req.user.__v,
 		privileges: req.user.privileges,
 		type: tokenConstants.TYPES.ACCESS_TOKEN,
-	}, serverConfig.SECRET, { expiresIn: tokenConfig.ACCESS_TOKEN_EXPIRATIONTIME });
+	}, process.env.SERVER_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRATIONTIME });
 
 	var refreshToken = jwt.sign({
 		id: req.user.id,
 		userVersion: req.user.__v,
 		privileges: req.user.privileges,
 		type: tokenConstants.TYPES.REFRESH_TOKEN,
-	}, serverConfig.SECRET, { expiresIn: tokenConfig.REFRESH_TOKEN_EXPIRATONTIME });
+	}, process.env.SERVER_SECRET, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATONTIME });
 
 	var data = {
 		token: token,
@@ -125,7 +123,7 @@ exports.SignTokenController = (req, res, next) => {
 
 exports.VerifyRefreshTokenController = (req, res, next) => {
 	if(!req.header('Authorization')) return res.status(401).json({ message: 'Missing token' });
-	jwt.verify(req.header('Authorization'), serverConfig.SECRET, function (err, verified) {
+	jwt.verify(req.header('Authorization'), process.env.SERVER_SECRET, function (err, verified) {
 		if (err) return res.status(401).json({ message: err.message });
 		if (verified.type === tokenConstants.TYPES.ACCESS_TOKEN)
       return res.status(401).json({

@@ -7,63 +7,65 @@ global.moduleRequire = function(name) {
 };
 
 var express = require('express');
+var app = express();
 var chalk = require('chalk');
 var mongoose = require('mongoose');
-var morgan = require('morgan');
 var bodyParser = require('body-parser');
-var app = express();
 var helmet = require('helmet');
-var cors = require('cors');
-var featuresConfig = require('./config/features.config');
-var serverConfig = require('./config/server.config');
 
-var dbConfig = require('./config/db.config');
 if(mongoose.connection.readyState === 0) {
-	mongoose.connect(dbConfig[serverConfig.ENVIRONMENT == 'dev' ? 'test' : 'production'],
+	mongoose.connect(process.env[process.env.SERVER_ENVIRONMENT + '_DB'],
 	function(err) {
 		if (err) console.log(err);
 		else console.log(chalk.cyan('- MongoDB', 'Activated:',
-			dbConfig[serverConfig.ENVIRONMENT == 'dev' ? 'test' : 'production']));
+			process.env[process.env.SERVER_ENVIRONMENT + '_DB']));
 	});
 };
 
 // app.use('/public', express.static(path.join(__dirname, '../public')));
 app.use(helmet());
-if(featuresConfig.CORS) app.use(cors());
+if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_CORS'] == 'true') {
+	var cors = require('cors');
+	app.use(cors());
+}
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-if(featuresConfig.LOGS) {
-	var fs = require('fs');
-	var FileStreamRotator = require('file-stream-rotator');
+if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_LOGS'] == 'true') {
+	var morgan = require('morgan');
 
-	var logDirectory = __dirname + '/log';
+	if(process.env.SERVER_ENVIRONMENT == 'dev') app.use(morgan('dev'));
+	else {
+		var fs = require('fs');
+		var FileStreamRotator = require('file-stream-rotator');
 
-	// ensure log directory exists
-	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+		var logDirectory = __dirname + '/log';
 
-	var accessLogStream = FileStreamRotator.getStream({
-		date_format: 'YYYYMMDD',
-		filename: logDirectory + '/access-%DATE%.log',
-		frequency: 'daily',
-		verbose: false,
-	});
+		// ensure log directory exists
+		fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
-	if(serverConfig.ENVIRONMENT == 'dev') app.use(morgan('dev'));
-	else app.use(morgan('combined', { stream: accessLogStream }));
+		var accessLogStream = FileStreamRotator.getStream({
+			date_format: 'YYYYMMDD',
+			filename: logDirectory + '/access-%DATE%.log',
+			frequency: 'daily',
+			verbose: false,
+		});
+		app.use(morgan('combined', { stream: accessLogStream }));
+	}
 }
 
-if(featuresConfig.API) {
+if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_API'] == 'true') {
 	var router = require('./routes');
-	if(featuresConfig.SEND_MIDDLEWARE) {
+	if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_SEND_MIDDLEWARE'] == 'true') {
 		var { Send } = rootRequire('leafing');
 		app.use('/api', router(), Send);
 	} else app.use('/api', router());
 }
 
-if(featuresConfig.DOCUMENTATION) app.use('/docs', express.static(__dirname + '/apidoc'));
+if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_DOCUMENTATION'] == 'true') app.use('/docs', express.static(__dirname + '/apidoc'));
 
-if(featuresConfig.GRAPHQL) {
+if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_GRAPHQL'] == 'true') {
 	var { getSchema } = require('@risingstack/graffiti-mongoose');
 	var graffiti = require('@risingstack/graffiti');
 	var Post = moduleRequire('Post/schemas');
@@ -76,10 +78,11 @@ if(featuresConfig.GRAPHQL) {
 var port = 8080;
 app.listen(port, function () {
 	console.log(chalk.bold.underline.green('Server is now listening at port ', port));
-	if(featuresConfig.API) console.log(chalk.cyan('- API', 'Activated'));
-	if(featuresConfig.CORS) console.log(chalk.cyan('- CORS', 'Activated'));
-	if(featuresConfig.API && featuresConfig.SEND_MIDDLEWARE) console.log(chalk.cyan('- Send Middleware', 'Activated'));
-	if(featuresConfig.GRAPHQL) console.log(chalk.cyan('- GraphQL', 'Activated'));
-	if(featuresConfig.DOCUMENTATION) console.log(chalk.cyan('- Documentation', 'Activated'));
-	if(featuresConfig.LOGS) console.log(chalk.cyan('- Logs', 'Activated'));
+	console.log(chalk.cyan.bold('- Environment', process.env.SERVER_ENVIRONMENT));
+	if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_API'] == 'true') console.log(chalk.cyan('- API', 'Activated'));
+	if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_CORS'] == 'true') console.log(chalk.cyan('- CORS', 'Activated'));
+	if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_API'] == 'true' && process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_SEND_MIDDLEWARE'] == 'true') console.log(chalk.cyan('- Send Middleware', 'Activated'));
+	if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_GRAPHQL'] == 'true') console.log(chalk.cyan('- GraphQL', 'Activated'));
+	if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_DOCUMENTATION'] == 'true') console.log(chalk.cyan('- Documentation', 'Activated'));
+	if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_LOGS'] == 'true') console.log(chalk.cyan('- Logs', 'Activated'));
 });

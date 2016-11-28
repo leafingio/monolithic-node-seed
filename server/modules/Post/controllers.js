@@ -11,7 +11,7 @@ exports.CreateController = (req, res, next)  => {
       type: req.body.type,
     });
 
-    newPost.save(function(err) {
+    newPost.save((err) => {
         if (err) Boom.badRequest(req, `${err.name} - ${err.message}`, err.errors);
         else Ok(req, newPost);
         next();

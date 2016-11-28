@@ -7,6 +7,7 @@ enable or disable and some others that eliminates boilerplate during development
 ## Features
 * Nodejs REST api
 * Nodejs graphql api
+* Dotenv (environment variables)
 * Logs (using Morgan)
 * Documentation (using Apidocs and Grunt)
 * CRUD examples
@@ -41,17 +42,21 @@ For any additional information please contact with [Albert Parrón](mailto:al.pa
 ## Configuration
 
 ### Features
-To enable or disable features go to config/features.config.js and change the variables.
+To enable or disable features go to .env file and change the variables.
 When you start the API you will see the log that outputs enabled features
 
 ### Environment
-To change the environment go to config/server.config.js and change the environment variable.
-There are 2 environment setups:
-* 'dev'
-* (other)
-Using dev, the logs will output in the console, otherwise will generate log files inside the log folder. (if
-log folder doesn't exist, the api will create it automatically).
-Also the environment setup will set the MongoDB url specified inside config/db.config.js
+To change the environment go to .env file and change the SERVER_ENVIRONMENT variable.
+There are 3 environment setups:
+* dev (you own computer)
+* test (testing server)
+* prod (production server)
+I've used dotenv to configure the environment variables with preload. This means that when you start the server with npm it will
+load automatically the correct variables based on the SERVER_ENVIRONMENT variable and put them inside process.env[VARIABLE].
+You can configure your server options inside this file or you can extend them.
+In order to extend the environment variables, follow de .env template and load them in your JS files as 
+process.env[process.env.SERVER_ENVIRONMENT + '_your_variable'].
+** Remember not to commit your .env file into version control, it will expose your credentials in open source projects **
 
 ### Documentation
 To generate the api documentation you need to run `grunt`. If you want to extend the api documentation, just follow
