@@ -58,7 +58,7 @@ You can configure your server options inside this file or you can extend them.
 In order to extend the environment variables, follow de .env template and load them in your JS files as 
 process.env[process.env.SERVER_ENVIRONMENT + '_your_variable'].
 
-** Remember not to commit your .env file into version control, it will expose your credentials in open source projects **
+**Remember not to commit your .env file into version control, it will expose your credentials in open source projects**
 
 ### Documentation
 To generate the api documentation you need to run `grunt`. If you want to extend the api documentation, just follow
