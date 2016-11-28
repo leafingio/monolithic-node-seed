@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     apidoc: {
       mypp: {
         src: 'server/modules/',
-        dest: 'server/apidoc/',
+        dest: 'apidoc/',
         options: {
           debug: true,
           includeFilters: ['.*\\.js$'],

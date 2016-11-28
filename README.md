@@ -63,7 +63,7 @@ process.env[process.env.SERVER_ENVIRONMENT + '_your_variable'].
 ### Documentation
 To generate the api documentation you need to run `grunt`. If you want to extend the api documentation, just follow
 the way that is generated the sample documentation:
-* Go to module
+* Go to module (f.e Post inside server folder)
 * Create routes.doc.js
 * Describe the routes using Apidocs specification.
 With this way, you can separate concerns in order to get the code clear and without noise. You can use your own style
@@ -77,7 +77,7 @@ I've added two other ways to require libraries inside the project:
 With this way, you can import the Leafing features that I have added to the project without the '../../../..''
 * `var PostRouter = moduleRequire('Post/routes');`
 With this other way you can import your modules without the '../../../..' because it goes to read directly to
-the modules folder
+the server folder where all modules will stay.
 
 ### Send
 The send feature/middleware is built to generate the response after Boom or Ok and next():
@@ -144,7 +144,7 @@ Using this header, you can receive the response in different ways:
 ## Work Flow
 
 ### Create module
-You can add functionality to you API creating a new folder inside modules (for example Post).
+You can add functionality to you API creating a new folder inside server folder (for example Post).
 It can be separated in:
 * controllers.js (where all logic goes)
 * routes.js (where all routes goes and decides which controllers-permissions-validations needs).
@@ -152,6 +152,6 @@ It can be separated in:
 * forms.js (where all parameter validation goes (see Post))
 * permissions.js (where all permissions goes)
 
-After that, you can include your routes inside the generic routes.js (./server/routes.js) calling them with the moduleRequire indicating the routes file of the module.
+After that, you can include your routes inside the main routes.js (./server/routes.js) calling them with the moduleRequire indicating the routes file of the module.
 
 ## To be continued...

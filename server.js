@@ -3,7 +3,7 @@ global.rootRequire = function(name) {
 };
 
 global.moduleRequire = function(name) {
-	return require(`${__dirname}/modules/${name}`);
+	return require(`${__dirname}/server/${name}`);
 };
 
 var express = require('express');
@@ -56,14 +56,14 @@ if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_LOGS'] == 'true') {
 }
 
 if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_API'] == 'true') {
-	var router = require('./routes');
+	var router = require('./server/routes');
 	if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_SEND_MIDDLEWARE'] == 'true') {
 		var { Send } = rootRequire('leafing');
 		app.use('/api', router(), Send);
 	} else app.use('/api', router());
 }
 
-if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_DOCUMENTATION'] == 'true') app.use('/docs', express.static(__dirname + '../apidoc'));
+if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_DOCUMENTATION'] == 'true') app.use('/docs', express.static(__dirname + '/apidoc'));
 
 if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_GRAPHQL'] == 'true') {
 	var { getSchema } = require('@risingstack/graffiti-mongoose');
