@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     apidoc: {
       mypp: {
-        src: 'server/modules/',
+        src: 'server/',
         dest: 'apidoc/',
         options: {
           debug: true,
