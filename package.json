@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha -r dotenv/config --reporter nyan --timeout 10000 server/**/tests.js",
-    "start": "nodemon -r dotenv/config server.js"
+    "test": "mocha -r dotenv/config -r ./leafing/require --reporter nyan --timeout 10000 server/**/tests.js",
+    "start": "nodemon -r dotenv/config -r ./leafing/require -r ./server.js"
   },
   "author": "leafingio",
   "license": "none",

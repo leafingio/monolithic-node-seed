@@ -1,10 +1,3 @@
-global.rootRequire = function(name) {
-	return require(`${__dirname}/${name}`);
-};
-
-global.moduleRequire = function(name) {
-	return require(`${__dirname}/server/${name}`);
-};
 
 var app = require('express')();
 

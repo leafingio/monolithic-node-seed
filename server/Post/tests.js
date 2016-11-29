@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var should = require('should');
 var request = require('supertest');
-var app = require('../../server');
+var app = rootRequire('server');
 var Post = mongoose.model('Post');
 
 var count;
