@@ -1,5 +1,3 @@
-var helmet = require('helmet');
-
 module.exports = function(app){    
-    app.use(helmet());
+    app.use(require('helmet')());
 }

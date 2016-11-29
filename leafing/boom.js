@@ -1,5 +1,3 @@
-var Send = require('./send');
-
 function createError(req, statusCode, error, message, data) {
   req.error = {
     statusCode,

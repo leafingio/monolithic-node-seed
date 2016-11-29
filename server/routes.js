@@ -1,6 +1,4 @@
-var express = require('express');
-var router = express.Router();
-var path = require("path");
+var router = require('express').Router();
 
 var PostRouter = moduleRequire('Post/routes');
 var UserRouter = moduleRequire('User/routes');
@@ -10,8 +8,8 @@ module.exports = function () {
 		res.send('Welcome');
 	});
 
-  router.use('/posts', PostRouter());
-  router.use('/auth', UserRouter());
+	router.use('/posts', PostRouter());
+	router.use('/auth', UserRouter());
 
 	return router;
 };
