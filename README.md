@@ -25,11 +25,13 @@ enable or disable and some others that eliminates boilerplate during development
 * [Node and npm](http://nodejs.org)
 * [MongoDB](http://mongodb.com)
 * [Grunt](http://gruntjs.com)
+* [Mocha](http://mochajs.org)
+
 
 ### Installation
 0. Clone project `git clone https://github.com/leafingio/api.git`
 1. Install node dependencies: `npm install`
-2. Run the application: `npm start`
+2. Run the application in development mode: `npm run dev`
 3. Go to [http://localhost:8080/api](http://localhost:8080/api) for REST api
 3. Go to [http://localhost:8080/docs](http://localhost:8080/docs) for api documentation
 
@@ -46,15 +48,21 @@ For any additional information please contact with [Albert Parrón](mailto:al.pa
 To enable or disable features go to .env file and change the variables.
 When you start the API you will see the log that outputs enabled features
 
+### Environment start
+There are 3 different starts:
+* npm run dev (Starts the server in development configuration to develop your application.)
+* npm test (Starts the server in testing configuration, runs the tests, drops the DB and stops the server.)
+* npm start (Starts the server in production configuration.)
+
 ### Environment
-To change the environment go to .env file and change the SERVER_ENVIRONMENT variable.
+To change the environment start with one of the commands above.
 There are 3 environment setups:
 * dev (you own computer)
 * test (testing server)
 * prod (production server)
 
 I've used dotenv to configure the environment variables with preload. This means that when you start the server with npm it will
-load automatically the correct variables based on the SERVER_ENVIRONMENT variable and put them inside process.env[VARIABLE].
+load automatically the correct variables based on the start command that sets a SERVER_ENVIRONMENT variable and put them inside process.env[VARIABLE].
 You can configure your server options inside this file or you can extend them.
 In order to extend the environment variables, follow de .env template and load them in your JS files as 
 process.env[process.env.SERVER_ENVIRONMENT + '_your_variable'].

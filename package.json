@@ -4,8 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha -r dotenv/config -r ./leafing/require --reporter nyan --timeout 10000 server/**/tests.js",
-    "start": "nodemon -r dotenv/config -r ./leafing/require -r ./server.js"
+    "test": "SERVER_ENVIRONMENT=test mocha -r dotenv/config -r ./leafing/require --reporter nyan --timeout 10000 server/**/tests.js",
+    "dev": "SERVER_ENVIRONMENT=dev nodemon -r dotenv/config -r ./leafing/require -r ./server.js",
+    "start": "SERVER_ENVIRONMENT=prod nodemon -r dotenv/config -r ./leafing/require -r ./server.js"
   },
   "author": "leafingio",
   "license": "none",

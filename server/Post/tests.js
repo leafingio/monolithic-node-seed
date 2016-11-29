@@ -6,7 +6,7 @@ var Post = mongoose.model('Post');
 
 var count;
 
-describe('Posts', function () {
+describe('- Posts -', function () {
   describe('POST /posts', function () {
     describe('Invalid parameters', function () {
       before(function (done) {

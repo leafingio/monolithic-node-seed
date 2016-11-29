@@ -7,8 +7,11 @@ module.exports = function(){
         mongoose.connect(process.env[process.env.SERVER_ENVIRONMENT + '_DB'],
         function(err) {
             if (err) console.log(err);
-            else console.log(chalk.cyan('- MongoDB', 'Activated:',
-                process.env[process.env.SERVER_ENVIRONMENT + '_DB']));
+            else {
+                console.log(chalk.cyan('- MongoDB', 'Activated:',
+                    process.env[process.env.SERVER_ENVIRONMENT + '_DB']));
+                console.log('\n')
+            }
         });
     };
 }
