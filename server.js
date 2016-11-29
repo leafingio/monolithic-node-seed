@@ -19,3 +19,5 @@ require('./middleware/documentation')(app)
 require('./middleware/graphql')(app)
 
 app.listen(process.env[process.env.SERVER_ENVIRONMENT + '_PORT'], require('./middleware/consoleInit'));
+
+module.exports = app;

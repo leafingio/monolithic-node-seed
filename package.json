@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r dotenv/config --reporter nyan --timeout 10000 server/**/tests.js",
     "start": "nodemon -r dotenv/config server.js"
   },
   "author": "leafingio",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@risingstack/graffiti": "^3.2.0",
     "@risingstack/graffiti-mongoose": "^5.3.0",
+    "async": "^2.1.4",
     "bcryptjs": "^2.3.0",
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.1",
@@ -41,6 +42,8 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-apidoc": "^0.11.0",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-contrib-watch": "^1.0.0",
+    "should": "^11.1.1",
+    "supertest": "^2.0.1"
   }
 }

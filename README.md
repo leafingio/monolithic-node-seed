@@ -17,6 +17,7 @@ enable or disable and some others that eliminates boilerplate during development
 * Joi (Post and get parameters validation)
 * Boom (Own wrapper for error objects)
 * Ok (Success objects)
+* Mocha (tests)
 
 ## Setup
 
@@ -141,6 +142,10 @@ Using this header, you can receive the response in different ways:
 * `application/json` will send json
 * `application/xml` will send json parsed to xml
 
+### Testing
+You can create tests inside every module. Mocha is prepared to run every tests.js file that founds inside server folder. 
+To run your tests just type `npm test` in the shell. See Post module for examples. 
+
 ## Work Flow
 
 ### Create module
@@ -151,6 +156,7 @@ It can be separated in:
 * schemas.js (where all mongoose schemas goes)
 * forms.js (where all parameter validation goes (see Post))
 * permissions.js (where all permissions goes)
+* tests.js (where all tests goes)
 
 After that, you can include your routes inside the main routes.js (./server/routes.js) calling them with the moduleRequire indicating the routes file of the module.
 
