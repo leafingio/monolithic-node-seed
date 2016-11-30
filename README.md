@@ -23,7 +23,7 @@ enable or disable and some others that eliminates boilerplate during development
 ## Setup
 
 ### Required tools
-* [Node and npm](http://nodejs.org)
+* [Node 6.x and npm](http://nodejs.org)
 * [MongoDB](http://mongodb.com)
 * [Grunt](http://gruntjs.com)
 * [Mocha](http://mochajs.org)
