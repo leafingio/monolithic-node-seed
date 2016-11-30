@@ -6,7 +6,7 @@ module.exports = function(app) {
         else {
             var fs = require('fs');
 
-            var logDirectory = __dirname + '/log';
+            var logDirectory = './log';
 
             // ensure log directory exists
             fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);

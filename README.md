@@ -12,6 +12,7 @@ enable or disable and some others that eliminates boilerplate during development
 * Dotenv (environment variables)
 * Logs (using Morgan)
 * Documentation (using Apidocs and Grunt)
+* Rate limit (limit number of requests in a certain period of time)
 * CRUD examples
 * Authentication with email/user and password
 * Helmet (Security with headers)
