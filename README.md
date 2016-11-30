@@ -154,9 +154,14 @@ Using this header, you can receive the response in different ways:
 * `application/json` will send json
 * `application/xml` will send json parsed to xml
 
-### Testing
+## Testing
 You can create tests inside every module. Mocha is prepared to run every tests.js file that founds inside server folder. 
-To run your tests just type `npm test` in the shell. See Post module for examples. 
+To run your tests just type `npm test` in the shell. See Post module for examples.
+
+## Continuous integration
+I've added a .travis.yml file to use continuous integration with Travis CI. This file has all the configuration needed to
+test your repository with Travis CI. Just signup in Travis CI web, activate your repository and push a commit. It will start
+running all the tests for you. You can configure the behaviour needed for your project.
 
 ## Work Flow
 
