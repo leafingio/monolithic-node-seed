@@ -1,4 +1,6 @@
 # Leafing.io API
+[![Build Status](https://travis-ci.org/leafingio/node-seed.svg?branch=master)](https://travis-ci.org/leafingio/node-seed)
+
 NodeJS API seed built with great features.
 
 This seed is intended to be a good starter point. My objective is to bring great features that you can
