@@ -18,6 +18,7 @@ enable or disable and some others that eliminates boilerplate during development
 * Boom (Own wrapper for error objects)
 * Ok (Success objects)
 * Mocha (tests)
+* Travis CI
 
 ## Setup
 
