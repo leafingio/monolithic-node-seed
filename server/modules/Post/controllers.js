@@ -10,7 +10,7 @@ exports.CreateController = (req, res, next)  => {
       url: slug(req.body.title),
       type: req.body.type,
     });
-
+    // Change for pull request
     newPost.save((err) => {
         if (err) Boom.badRequest(req, `${err.name} - ${err.message}`, err.errors);
         else Ok(req, newPost);
