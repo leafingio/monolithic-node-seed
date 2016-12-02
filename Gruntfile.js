@@ -11,8 +11,13 @@ module.exports = function(grunt) {
         },
       },
     },
+    nsp: {
+      package: grunt.file.readJSON('package.json')
+    }
   });
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-apidoc');
+  grunt.loadNpmTasks('grunt-nsp');
   grunt.registerTask('default', ['apidoc']);
+  grunt.registerTask('security', ['nsp']);
 };

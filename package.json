@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "commit": "git-cz",
-    "test": "SERVER_ENVIRONMENT=test mocha -r dotenv/config -r ./server/leafing/require --timeout 10000 server/**/*.test.js",
+    "test": "SERVER_ENVIRONMENT=test istanbul cover -x *.test.js _mocha -- -R spec -r dotenv/config -r ./server/leafing/require --timeout 10000 server/**/*.test.js server/**/**/*.test.js",
     "dev": "SERVER_ENVIRONMENT=dev nodemon  -r dotenv/config -r ./server/leafing/require",
     "start": "SERVER_ENVIRONMENT=prod nodemon -r dotenv/config -r ./server/leafing/require ",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
@@ -61,6 +61,7 @@
     "grunt": "^1.0.1",
     "grunt-apidoc": "^0.11.0",
     "grunt-contrib-watch": "^1.0.0",
+    "grunt-nsp": "^2.3.1",
     "mocha": "^3.2.0",
     "rimraf": "^2.5.4",
     "semantic-release": "^6.3.2",
