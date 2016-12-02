@@ -1,12 +1,18 @@
 {
   "name": "API-Documentation",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "",
   "main": "server.js",
   "scripts": {
+    "commit": "git-cz",
     "test": "SERVER_ENVIRONMENT=test mocha -r dotenv/config -r ./leafing/require --reporter nyan --timeout 10000 server/**/tests.js",
     "dev": "SERVER_ENVIRONMENT=dev nodemon -r dotenv/config -r ./leafing/require -r ./server.js",
-    "start": "SERVER_ENVIRONMENT=prod nodemon -r dotenv/config -r ./leafing/require -r ./server.js"
+    "start": "SERVER_ENVIRONMENT=prod nodemon -r dotenv/config -r ./leafing/require -r ./server.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leafingio/node-seed.git"
   },
   "author": "leafingio",
   "license": "none",
@@ -43,11 +49,18 @@
     "validator": "^5.7.0"
   },
   "devDependencies": {
+    "assert": "^1.4.1",
+    "commitizen": "^2.8.6",
+    "cz-conventional-changelog": "^1.2.0",
     "grunt": "^1.0.1",
     "grunt-apidoc": "^0.11.0",
     "grunt-contrib-watch": "^1.0.0",
     "mocha": "^3.2.0",
+    "semantic-release": "^6.3.2",
     "should": "^11.1.1",
     "supertest": "^2.0.1"
+  },
+  "czConfig": {
+    "path": "node_modules/cz-conventional-changelog"
   }
 }
