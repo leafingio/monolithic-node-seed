@@ -8,9 +8,11 @@ module.exports = function(){
         function(err) {
             if (err) console.log(err);
             else {
-                console.log(chalk.cyan('- MongoDB', 'Activated:',
+                if(process.env.SERVER_ENVIRONMENT != 'test') {
+                    console.log(chalk.cyan('- MongoDB', 'Activated:',
                     process.env[process.env.SERVER_ENVIRONMENT + '_DB']));
-                console.log('\n')
+                    console.log('\n')
+                }
             }
         });
     };
