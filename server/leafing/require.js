@@ -3,5 +3,5 @@ global.rootRequire = function(name) {
 };
 
 global.moduleRequire = function(name) {
-	return require(`../server/${name}`);
+	return require(`../modules/${name}`);
 };

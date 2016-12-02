@@ -1,5 +1,5 @@
 # Leafing.io API
-[![Build Status](https://travis-ci.org/leafingio/node-seed.svg?branch=master)](https://travis-ci.org/leafingio/node-seed)
+[![Travis build](https://travis-ci.org/leafingio/node-seed.svg?branch=master&style=flat-sqare)](https://travis-ci.org/leafingio/node-seed)
 
 NodeJS API seed built with great features.
 
@@ -22,6 +22,7 @@ enable or disable and some others that eliminates boilerplate during development
 * Ok (Success objects)
 * Mocha (tests)
 * Travis CI
+* Semantic release with Commitizen
 
 ## Setup
 
