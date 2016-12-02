@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "commit": "git-cz",
-    "test": "SERVER_ENVIRONMENT=test istanbul cover -x *.test.js _mocha -- -R spec -r dotenv/config -r ./server/leafing/require --timeout 10000 server/**/*.test.js server/**/**/*.test.js",
+    "test": "SERVER_ENVIRONMENT=test istanbul cover -x *.test.js _mocha -- -R nyan -r dotenv/config -r ./server/leafing/require --timeout 10000 server/**/*.test.js server/**/**/*.test.js",
     "dev": "SERVER_ENVIRONMENT=dev nodemon  -r dotenv/config -r ./server/leafing/require",
     "start": "SERVER_ENVIRONMENT=prod nodemon -r dotenv/config -r ./server/leafing/require ",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
