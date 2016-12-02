@@ -21,7 +21,7 @@ describe('- Posts -', function () {
             .post('/api/posts')
             .send({text: 'Foo bar'})
             .expect('Content-Type', 'application/json; charset=utf-8')
-            .expect(300)
+            .expect(400)
             .expect(function(res){
                 if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
                 if(res.body.data[0].message != '"title" is required' ) throw new Error('Should respond "title" is required')
