@@ -30,7 +30,9 @@ module.exports = function () {
     router.get('/refresh',
         RefreshForm,
         VerifyRefreshTokenController,
-        RefreshToken
+        RefreshToken,
+        SignTokenController,
+        RefreshTokenController
     );
 
     return router;

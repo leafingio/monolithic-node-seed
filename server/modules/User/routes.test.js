@@ -295,19 +295,19 @@ describe('- Users -', function () {
             });
         });
 
-        // describe('Valid parameters', function () {
-        //     it('should respond ok', function (done) {
-        //         request(app)
-        //             .get('/api/auth/refresh')
-        //             .set('Authorization', refreshToken)
-        //             .expect('Content-Type', 'application/json; charset=utf-8')
-        //             .expect(200)
-        //             .expect(function(res){
-        //                 if(res.body.message != 'An access token can not be used as an refresh token' ) throw new Error('Should respond An access token can not be used as an refresh token.')
-        //             })
-        //             .end(done)
-        //     });
-        // });
+        describe('Valid parameters', function () {
+            it('should respond ok', function (done) {
+                request(app)
+                    .get('/api/auth/refresh')
+                    .set('Authorization', refreshToken)
+                    .expect('Content-Type', 'application/json; charset=utf-8')
+                    .expect(200)
+                    .expect(function(res){
+                        if(!res.body.data.token) throw new Error('Should respond token and refreshToken')
+                    })
+                    .end(done)
+            });
+        });
     });
 
     after(function (done) {
