@@ -21,6 +21,7 @@ enable or disable and some others that eliminates boilerplate during development
 * Boom (Own wrapper for error objects)
 * Ok (Success objects)
 * Mocha (tests)
+* Istanbul (code coverage)
 * Travis CI
 * Semantic release with Commitizen
 
@@ -31,7 +32,7 @@ enable or disable and some others that eliminates boilerplate during development
 * [MongoDB](http://mongodb.com)
 * [Grunt](http://gruntjs.com)
 * [Mocha](http://mochajs.org)
-
+* [Istanbul](https://github.com/gotwarlost/istanbul)
 
 ### Installation
 0. Clone project `git clone https://github.com/leafingio/api.git`

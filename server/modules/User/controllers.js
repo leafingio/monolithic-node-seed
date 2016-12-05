@@ -156,9 +156,9 @@ exports.RefreshToken = (req, res, next) => {
 			if (req.verified.userVersion !== user.__v) Boom.unauthorized(req, 'Unauthorized');
 			if (user.isBanned) Boom.unauthorized(req, 'Unauthorized');
 			req.user = user;
-			SignTokenController(req, res, next);
+			next()
 		});
-	} next();
+	} else next();
 };
 
 exports.RefreshTokenController = (req, res, next) => {

@@ -31,6 +31,7 @@ module.exports = function () {
         RefreshForm,
         VerifyRefreshTokenController,
         RefreshToken,
+        SignTokenController,
         RefreshTokenController
     );
 
