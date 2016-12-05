@@ -53,28 +53,10 @@ exports.CreateController = (req, res, next) => {
 		password: req.body.password,
 		});
 
-		User.findOne({
-		$or: [
-			{ username: req.body.username },
-			{ email: req.body.email },
-		],
-		}, function(err, user) {
-			if(err){
-				Boom.badImplementation(req, 'Server internal error', err.errors);
-				next();
-			} else {
-				if (user) {
-					if(user.email === newUser.email) Boom.conflict(req, 'Email already in use', {})//return res.status(409).send('Email already in use');
-					else Boom.conflict(req, 'Username already in use', {})//return res.status(409).send('Username already in use');
-					next()
-				} else {
-					newUser.save(function(err) {
-						if (err) Boom.badImplementation(req, 'Error saving user', err.errors)//return res.status(500).send();
-						else Ok(req, newUser);
-						next();
-					});
-				}
-			}
+		newUser.save(function(err) {
+			if (err) Boom.badImplementation(req, 'Internal server error', err.errors)
+			else Ok(req, newUser);
+			next();
 		});
 	} else next();
 };

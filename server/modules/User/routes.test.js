@@ -140,7 +140,7 @@ describe('- Users -', function () {
             it('should respond conflict', function (done) {
                 request(app)
                     .post('/api/auth/signup')
-                    .send({username: 'Test', password: 'pass'})
+                    .send({username: 'Test', password: 'pass', email: 'al.parron@gmail.com'})
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(409)
                     .end(done)
@@ -207,7 +207,7 @@ describe('- Users -', function () {
                     })
                     .end(done)
             });
-            it('password - should respond with errors', function (done) {
+            it('password with username - should respond with errors', function (done) {
                 request(app)
                     .post('/api/auth/login')
                     .send({username: 'Test', password: 'passs'})
@@ -215,6 +215,17 @@ describe('- Users -', function () {
                     .expect(401)
                     .expect(function(res){
                         if(res.body.data != 'Incorrect username or password' ) throw new Error('Should respond Incorrect username or password')
+                    })
+                    .end(done)
+            });
+            it('password with email - should respond with errors', function (done) {
+                request(app)
+                    .post('/api/auth/login')
+                    .send({username: 'al.parron@gmail.com', password: 'passs'})
+                    .expect('Content-Type', 'application/json; charset=utf-8')
+                    .expect(401)
+                    .expect(function(res){
+                        if(res.body.data != 'Incorrect email or password' ) throw new Error('Should respond Incorrect email or password')
                     })
                     .end(done)
             }); 
@@ -239,14 +250,23 @@ describe('- Users -', function () {
             });
         });
 
-        describe('Valid parameters', function () {
+        describe('XML', function () {
             it('should respond ok', function (done) {
                 request(app)
                     .post('/api/auth/login')
-                    .send({username: 'Test', password: 'pass'})
+                    .send({username: 'al.parron@gmail.com', password: 'pass'})
                     .set('Response-Type', 'application/xml')
                     .expect('Content-Type', 'text/html; charset=utf-8')
                     .expect(200)
+                    .end(done)
+            });
+            it('should respond bad', function (done) {
+                request(app)
+                    .post('/api/auth/login')
+                    .send({username: 'al.parron@gmail.com', password: 'passs'})
+                    .set('Response-Type', 'application/xml')
+                    .expect('Content-Type', 'text/html; charset=utf-8')
+                    .expect(401)
                     .end(done)
             });
         });
