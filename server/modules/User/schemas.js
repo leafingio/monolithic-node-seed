@@ -5,8 +5,8 @@ Promise.promisifyAll(bcrypt);
 var uniqueValidator = require('mongoose-unique-validator');
 
 var userSchema = new mongoose.Schema({
-	username: { type: String, required: true, unique: true },
-	email: { type: String, required: true, unique: true },
+	username: { type: String, unique: true },
+	email: { type: String, unique: true },
 	password: { type: String, required: true },
 });
 
@@ -31,4 +31,4 @@ userSchema.methods.validPassword = function (password) {
 	});
 };
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('User', userSchema);

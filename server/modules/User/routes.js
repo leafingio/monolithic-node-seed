@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var { RequestValidator, UniqueValidator } = require('./validators');
+var { UniqueValidator } = require('./validators');
+var { CreateForm, LoginForm, RefreshForm } = require('./forms');
+
 var {
   CreateController,
   AuthenticateController,
@@ -13,21 +15,22 @@ var {
 
 module.exports = function () {
     router.post('/signup',
-        RequestValidator,
+        CreateForm,
         UniqueValidator,
         CreateController
     );
 
     router.post('/login',
+        LoginForm,
         AuthenticateController,
         SignTokenController,
         LoginController
     );
 
-    router.get('/login/refresh',
-      VerifyRefreshTokenController,
-      RefreshToken,
-      RefreshTokenController
+    router.get('/refresh',
+        RefreshForm,
+        VerifyRefreshTokenController,
+        RefreshToken
     );
 
     return router;
