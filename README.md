@@ -2,6 +2,8 @@
 [![Travis build](https://travis-ci.org/leafingio/node-seed.svg?branch=master&style=flat-sqare)](https://travis-ci.org/leafingio/node-seed)
 [![codecov](https://codecov.io/gh/leafingio/node-seed/branch/master/graph/badge.svg)](https://codecov.io/gh/leafingio/node-seed)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![License](http://img.shields.io/:license-MIT-blue.svg)](http://doge.mit-license.org)
+
 NodeJS API seed built with great features.
 
 This seed is intended to be a good starter point. My objective is to bring great features that you can
