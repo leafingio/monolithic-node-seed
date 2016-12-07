@@ -130,6 +130,35 @@ exports.VerifyRefreshTokenController = (req, res, next) => {
 	} else next();
 };
 
+exports.VerifyTokenButContinue = (req, res, next) => {
+	if(!req.error){
+		if(req.header('Authorization')){
+			jwt.verify(req.header('Authorization'), process.env.SERVER_SECRET, function (err, verified) {
+				if (err) Boom.unauthorized(req, err.message, err); 
+				else {
+					if (verified.type === tokenConstants.TYPES.REFRESH_TOKEN)
+						Boom.unauthorized(req, 'A refresh token can not be used as an access token', {});
+					else req.verified = verified;
+				}
+				next()
+			});
+		} else next();
+	} else next();
+};
+
+exports.CheckTokenButContinue = (req, res, next) => {
+	if(!req.error && req.verified){
+		User.findById(req.verified.id, function (err, user) {
+			if (err) Boom.badImplementation(req, 'Internal server error');
+			if (!user) Boom.notFound(req, 'User not found');
+			if (req.verified.userVersion !== user.__v) Boom.unauthorized(req, 'Unauthorized');
+			if (user.isBanned) Boom.unauthorized(req, 'Unauthorized');
+			req.user = user;
+			next()
+		});
+	} else next();
+};
+
 exports.RefreshToken = (req, res, next) => {
 	if(!req.error){
 		User.findById(req.verified.id, function (err, user) {
