@@ -39,6 +39,7 @@
     "helmet": "^3.1.0",
     "ipware": "^1.0.0",
     "joi": "^10.0.1",
+    "joi-objectid": "^2.0.0",
     "js2xmlparser": "^2.0.2",
     "jsonwebtoken": "^7.0.0",
     "mongoose": "^4.4.15",
