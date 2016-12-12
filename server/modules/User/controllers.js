@@ -47,7 +47,6 @@ passport.use('email', new LocalStrategy(
 
 exports.Create = (req, res, next) => {
 	if(!req.error){
-		console.log(' create')
 		var newUser = new User({
 			username: req.body.username,
 			email: req.body.email,

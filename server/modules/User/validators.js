@@ -23,40 +23,25 @@ var tokenConstants = {
 exports.isUnique = (req, res, next) => {
 	if(!req.error){
 		var query = {}
-		if(req.body.username) {
-			query = { username: req.body.username }
-			console.log(query)
-			User.findOne(query, function(err, user) {
-				console.log(err, user)
-				if (!err) {
-					if (user) {
-						if (user.username === req.body.username) Boom.conflict(req, 'Username already exists', {})
-						if (user.email === req.body.email) Boom.conflict(req, 'Email already exists', {})
-					}
-				} else Boom.badImplementation(req, 'Internal server error', {});
-
-				next();
-			});
-		}
-		else if(req.body.email){
-			query = { email: req.body.email }
-			User.findOne(query, function(err, user) {
-				if (!err) {
-					if (user) {
-						if (user.username === req.body.username) Boom.conflict(req, 'Username already exists', {})
-						if (user.email === req.body.email) Boom.conflict(req, 'Email already exists', {})
-					}
-				} else Boom.badImplementation(req, 'Internal server error', {});
-
-				next();
-			});
-		} 
+		if(!req.body.username && !req.body.email) next()
 		else {
-			Boom.conflict(req, 'Email or username required', {})
-			next()
-		}
+			if(req.body.email) query = { email: req.body.email }
+			else query = { username: req.body.username }
+			User.findOne({
+			$or: [
+				{ username: req.body.username },
+				{ email: req.body.email },
+			],}, function(err, user) {
+				if (!err) {
+					if (user) {
+						if (user.username === req.body.username) Boom.conflict(req, 'Username already exists', {})
+						if (user.email === req.body.email) Boom.conflict(req, 'Email already exists', {})
+					}
+				} else Boom.badImplementation(req, 'Internal server error', {});
 
-		
+				next();
+			});
+		}
 	} else next();
 };
 
@@ -87,7 +72,7 @@ exports.isToken = (req, res, next) => {
 				next()
 			});
 		} else next();
-	}
+	} else next()
 };
 
 exports.existsToken = (req, res, next) => {
