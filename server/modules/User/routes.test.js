@@ -11,6 +11,22 @@ describe('- Users -', function () {
     // Singup
 
     describe('POST /auth/signup', function () {
+        describe('Method not found', function(){
+            it('not found api method', function(done){
+                request(app)
+                    .get('/api/au')
+                    .expect('Content-Type', 'application/json; charset=utf-8')
+                    .expect(404)
+                    .end(done)
+            })
+            it('not found method', function(done){
+                request(app)
+                    .get('/a')
+                    .expect('Content-Type', 'application/json; charset=utf-8')
+                    .expect(404)
+                    .end(done)
+            })
+        })
         describe('Invalid parameters', function () {
             before(function (done) {
                 User.count(function (err, cnt) {

@@ -1,1 +1,1 @@
-define({  "name": "API-Documentation",  "version": "1.0.0",  "description": "",  "sampleUrl": false,  "apidoc": "0.2.0",  "generator": {    "name": "apidoc",    "time": "2016-11-28T11:37:45.305Z",    "url": "http://apidocjs.com",    "version": "0.16.1"  }});
+define({  "name": "leafingio-node-seed",  "version": "0.0.0-development",  "description": "",  "sampleUrl": false,  "apidoc": "0.2.0",  "generator": {    "name": "apidoc",    "time": "2016-12-12T11:27:48.281Z",    "url": "http://apidocjs.com",    "version": "0.16.1"  }});
