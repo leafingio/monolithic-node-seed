@@ -1,38 +1,30 @@
 var express = require('express');
 var router = express.Router();
-var { UniqueValidator } = require('./validators');
-var { CreateForm, LoginForm, RefreshForm } = require('./forms');
 
-var {
-  CreateController,
-  AuthenticateController,
-  SignTokenController,
-  VerifyRefreshTokenController,
-  LoginController,
-  RefreshToken,
-  RefreshTokenController,
-} = require('./controllers');
+var Validators = require('./validators');
+var Forms = require('./forms');
+var Controllers = require('./controllers');
 
 module.exports = function () {
     router.post('/signup',
-        CreateForm,
-        UniqueValidator,
-        CreateController
+        Forms.Create,
+        Validators.isUnique,
+        Controllers.Create
     );
 
     router.post('/login',
-        LoginForm,
-        AuthenticateController,
-        SignTokenController,
-        LoginController
+        Forms.Login,
+        Validators.Authenticate,
+        Controllers.SignTokens,
+        Controllers.SendTokens
     );
 
     router.get('/refresh',
-        RefreshForm,
-        VerifyRefreshTokenController,
-        RefreshToken,
-        SignTokenController,
-        RefreshTokenController
+        Forms.Refresh,
+        Validators.isRefreshToken,
+        Validators.existsToken,
+        Controllers.SignTokens,
+        Controllers.SendTokens
     );
 
     return router;

@@ -1,11 +1,14 @@
 var router = require('express').Router();
 
-var { CreateForm } = require('./forms');
-var { CreateController } = require('./controllers');
+var Forms = require('./forms');
+var Controllers = require('./controllers');
 
 module.exports = function () {
 
-	router.post('/', CreateForm, CreateController);
+	router.post('/', 
+		Forms.Create,
+		Controllers.Create
+	);
 
 	return router;
 };

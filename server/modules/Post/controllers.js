@@ -2,7 +2,7 @@ var Post = require('./schemas');
 var { Boom, Ok } = rootRequire('leafing');
 var slug = require('slug');
 
-exports.CreateController = (req, res, next)  => {
+exports.Create = (req, res, next)  => {
   if(!req.error) {
     var newPost = new Post({
       title: req.body.title,

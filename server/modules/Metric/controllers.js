@@ -1,7 +1,7 @@
 var Metric = require('./schemas');
 var { Boom, Ok } = rootRequire('leafing');
 
-exports.CreateController = (req, res, next)  => {
+exports.Create = (req, res, next)  => {
   if(!req.error) {
     var newMetric = new Metric({
       source: req.body.source,

@@ -45,12 +45,12 @@ passport.use('email', new LocalStrategy(
 	}
 ));
 
-exports.CreateController = (req, res, next) => {
+exports.Create = (req, res, next) => {
 	if(!req.error){
 		var newUser = new User({
-		username: req.body.username,
-		email: req.body.email,
-		password: req.body.password,
+			username: req.body.username,
+			email: req.body.email,
+			password: req.body.password,
 		});
 
 		newUser.save(function(err) {
@@ -61,28 +61,7 @@ exports.CreateController = (req, res, next) => {
 	} else next();
 };
 
- exports.AuthenticateController = (req, res, next) => {
-	if(!req.error){
-		if (validator.isEmail(req.body.username)) {
-			passport.authenticate('email', function (err, user) {
-				if (err){
-					Boom.unauthorized(req, 'Unathorized', err);
-					next();
-				}
-				else req.logIn(user, { session: false }, next);
-			})(req, res, next);
-		} else {
-			passport.authenticate('username', function (err, user) {
-				if (err){
-					Boom.unauthorized(req, 'Unauthorized', err);
-					next();
-				} else req.logIn(user, { session: false }, next);
-			})(req, res, next);
-		}
-	} else next();
-};
-
-exports.SignTokenController = (req, res, next) => {
+exports.SignTokens = (req, res, next) => {
 	if(!req.error){
 		var token = jwt.sign({
 			id: req.user.id,
@@ -108,74 +87,12 @@ exports.SignTokenController = (req, res, next) => {
 	} else next();
 };
 
-exports.LoginController = (req, res, next) => {
-	if(!req.error){
-		if (req.user && req.data) Ok(req, req.data);
-		else Boom.badImplementation(req, 'Server internal error');
-		next()
-	} else next()
-};
-
-exports.VerifyRefreshTokenController = (req, res, next) => {
-	if(!req.error){
-		jwt.verify(req.header('Authorization'), process.env.SERVER_SECRET, function (err, verified) {
-			if (err) Boom.unauthorized(req, err.message, err );
-			else {
-				if (verified.type === tokenConstants.TYPES.ACCESS_TOKEN)
-					Boom.unauthorized(req, 'An access token can not be used as an refresh token', {});
-				else req.verified = verified;
-			}
-			next()
-		});
-	} else next();
-};
-
-exports.VerifyTokenButContinue = (req, res, next) => {
-	if(!req.error){
-		if(req.header('Authorization')){
-			jwt.verify(req.header('Authorization'), process.env.SERVER_SECRET, function (err, verified) {
-				if (err) Boom.unauthorized(req, err.message, err); 
-				else {
-					if (verified.type === tokenConstants.TYPES.REFRESH_TOKEN)
-						Boom.unauthorized(req, 'A refresh token can not be used as an access token', {});
-					else req.verified = verified;
-				}
-				next()
-			});
-		} else next();
-	} else next();
-};
-
-exports.CheckTokenButContinue = (req, res, next) => {
-	if(!req.error && req.verified){
-		User.findById(req.verified.id, function (err, user) {
-			if (err) Boom.badImplementation(req, 'Internal server error');
-			if (!user) Boom.notFound(req, 'User not found');
-			if (req.verified.userVersion !== user.__v) Boom.unauthorized(req, 'Unauthorized');
-			if (user.isBanned) Boom.unauthorized(req, 'Unauthorized');
-			req.user = user;
-			next()
-		});
-	} else next();
-};
-
-exports.RefreshToken = (req, res, next) => {
-	if(!req.error){
-		User.findById(req.verified.id, function (err, user) {
-			if (err) Boom.badImplementation(req, 'Internal server error');
-			if (!user) Boom.notFound(req, 'User not found');
-			if (req.verified.userVersion !== user.__v) Boom.unauthorized(req, 'Unauthorized');
-			if (user.isBanned) Boom.unauthorized(req, 'Unauthorized');
-			req.user = user;
-			next()
-		});
-	} else next();
-};
-
-exports.RefreshTokenController = (req, res, next) => {
+exports.SendTokens = (req, res, next) => {
 	if(!req.error){
 		if (req.data) Ok(req, req.data);
 		else Boom.badImplementation(req, 'Internal server error');
 		next()
 	} else next();
 };
+
+
