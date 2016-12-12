@@ -15,16 +15,14 @@ module.exports = function () {
     router.post('/login',
         Forms.Login,
         Validators.Authenticate,
-        Controllers.SignTokens,
-        Controllers.SendTokens
+        Controllers.CreateTokens
     );
 
     router.get('/refresh',
         Forms.Refresh,
         Validators.isRefreshToken,
         Validators.existsToken,
-        Controllers.SignTokens,
-        Controllers.SendTokens
+        Controllers.CreateTokens
     );
 
     return router;

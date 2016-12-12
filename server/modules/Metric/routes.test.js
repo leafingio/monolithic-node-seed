@@ -23,7 +23,9 @@ describe('- Metrics -', function () {
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(400)
             .expect(function(res){
+                /* istanbul ignore if */
                 if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                /* istanbul ignore if */
                 if(res.body.data[0].message != '"source" is required' ) throw new Error('Should respond "source" is required')
             })
             .end(done)
@@ -35,7 +37,9 @@ describe('- Metrics -', function () {
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(400)
             .expect(function(res){
+                /* istanbul ignore if */
                 if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                /* istanbul ignore if */
                 if(res.body.data[0].message != '"country" is required' ) throw new Error('Should respond "country" is required')
             })
             .end(done)
@@ -47,7 +51,9 @@ describe('- Metrics -', function () {
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(400)
             .expect(function(res){
+                /* istanbul ignore if */
                 if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                /* istanbul ignore if */
                 if(res.body.data[0].message != '"version" is required' ) throw new Error('Should respond "version" is required')
             })
             .end(done)
@@ -85,6 +91,7 @@ describe('- Metrics -', function () {
               .expect('Content-Type', 'application/json; charset=utf-8')
               .expect(200)
               .expect(function(res){
+                  /* istanbul ignore if */
                   if(!res.body.data.token) throw new Error('Should respond token and refreshToken')
                   else{
                       token = res.body.data.token
@@ -109,6 +116,24 @@ describe('- Metrics -', function () {
             .send({source: 'api', event: 'method', type: 'post', value: 'user', country: 'es', device: 'mac', version: '1.0.0'})
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(200)
+            .end(done)
+      });
+      it('should respond error when authenticated with refreshToken', function (done) {
+        request(app)
+            .post('/api/metrics')
+            .set('Authorization', refreshToken)
+            .send({source: 'api', event: 'method', type: 'post', value: 'user', country: 'es', device: 'mac', version: '1.0.0'})
+            .expect('Content-Type', 'application/json; charset=utf-8')
+            .expect(401)
+            .end(done)
+      });
+      it('should respond error when authenticated with bad token', function (done) {
+        request(app)
+            .post('/api/metrics')
+            .set('Authorization', token.split('').reverse().join(''))
+            .send({source: 'api', event: 'method', type: 'post', value: 'user', country: 'es', device: 'mac', version: '1.0.0'})
+            .expect('Content-Type', 'application/json; charset=utf-8')
+            .expect(401)
             .end(done)
       });
       it('should insert two records to the database', function (done) {

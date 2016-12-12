@@ -15,6 +15,7 @@ exports.Create = (req, res, next)  => {
     });
 
     newMetric.save((err) => {
+        /* istanbul ignore if */
         if (err) Boom.badRequest(req, `${err.name} - ${err.message}`, err.errors);
         else Ok(req, newMetric);
         next();

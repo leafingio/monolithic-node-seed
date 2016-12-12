@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 module.exports = function(){
+    /* istanbul ignore next */
     if(mongoose.connection.readyState === 0) {
         mongoose.connect(process.env[process.env.SERVER_ENVIRONMENT + '_DB'],
         function(err) {

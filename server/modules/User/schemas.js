@@ -12,6 +12,7 @@ var userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function (next) {
 	bcrypt.hash(this.password, 10, function (err, hash) {
+		/* istanbul ignore if */
 		if (err) throw new Error(err);
 		else {
 			this.password = hash;
@@ -26,6 +27,7 @@ userSchema.methods.validPassword = function (password) {
 	return bcrypt
 	.compareAsync(password, this.password)
 	.then(function (result, err) {
+		/* istanbul ignore if */
 		if (err) throw new Error(err);
 		return result;
 	});

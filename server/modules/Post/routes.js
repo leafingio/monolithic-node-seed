@@ -9,9 +9,6 @@ module.exports = function () {
 		Forms.Create,
 		Controllers.Create
 	);
-	router.get('/', function(req,res){
-		res.send('hola')
-	})
 
 	return router;
 };
