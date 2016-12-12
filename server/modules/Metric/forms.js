@@ -2,7 +2,7 @@ var Joi = require('joi');
 var { Boom } = rootRequire('leafing');
 Joi.objectId = require('joi-objectid')(Joi);
 
-var createFormSchema = Joi.object().keys({
+var createSchema = Joi.object().keys({
     source: Joi.string().min(3).max(50).required(),
     event: Joi.string().min(3).max(50).required(),
     type: Joi.string().min(3).max(50).required(),
@@ -12,7 +12,7 @@ var createFormSchema = Joi.object().keys({
     version: Joi.string().min(3).max(50).required() 
 });
 
-exports.CreateForm = (req, res, next) => {
+exports.Create = (req, res, next) => {
   Joi.validate({
       source: req.body.source,
       event: req.body.event,
@@ -21,7 +21,7 @@ exports.CreateForm = (req, res, next) => {
       country: req.body.country,
       device: req.body.device,
       version: req.body.version,
-  }, createFormSchema, function (err, value) {
+  }, createSchema, function (err, value) {
     if(err) Boom.badRequest(req, err.name, err.details);
     next();
   });

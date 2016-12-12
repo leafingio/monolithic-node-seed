@@ -1,19 +1,17 @@
 var router = require('express').Router();
 
-var { CreateForm } = require('./forms');
-var { CreateController } = require('./controllers');
-var { 
-	VerifyTokenButContinue,
-	CheckTokenButContinue
-} = require('../User/controllers');
+var Forms = require('./forms');
+var Controllers = require('./controllers');
+var UserControllers = require('../User/controllers');
+var UserValidators = require('../User/validators');
 
 module.exports = function () {
 
 	router.post('/', 
-		VerifyTokenButContinue,
-		CheckTokenButContinue,
-		CreateForm, 
-		CreateController
+		Forms.Create, 
+		UserValidators.isToken,
+		UserValidators.existsToken,
+		Controllers.Create
 	);
 
 	return router;

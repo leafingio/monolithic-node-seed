@@ -73,12 +73,12 @@
     "should": "^11.1.1",
     "supertest": "^2.0.1"
   },
-  "czConfig": {
-    "path": "node_modules/cz-conventional-changelog"
-  },
   "config": {
     "ghooks": {
       "pre-commit": "npm run test && npm run check-coverage"
+    },
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
     }
   }
 }
