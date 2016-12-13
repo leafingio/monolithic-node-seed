@@ -42,10 +42,21 @@ enable or disable and some others that eliminates boilerplate during development
 1. Install node dependencies: `npm install`
 2. Run the application in development mode: `npm run dev`
 3. Go to [http://localhost:8080/api](http://localhost:8080/api) for REST api
-3. Go to [http://localhost:8080/docs](http://localhost:8080/docs) for api documentation
+4. Go to [http://localhost:8080/docs](http://localhost:8080/docs) for api documentation
+5. Go to [http://localhost:8080/coverage](http://localhost:8080/coverage) for api test coverage
 
 ## Project structure
-Project structure with pythonic (Django) style. Build modules with their own controllers, routes, permissions, schemas...
+The project structure i have chosen the pythonic (Django) style. That means that you can build modules
+with their own controllers, routes, permissions, schemas and use them everywhere. For example, you can use the User module in
+other projects as is importing the routes to your router.
+
+You can think of Api requests as a pipeline composed of modules pipes. You can easily add new pipes, update or remove 
+them.
+
+For example, you may need that your request must come encrypted so you may add a decryption pipe. Pipes can work as filters, 
+routers, transformers that change the request by adding more data to it or changing data in it and then pass it to the next pipe 
+of the pipeline or anything that you need.
+
 If you have any questions about the build or project structure please check out the documentation.
 
 ## Support
@@ -110,7 +121,7 @@ The middleware will know when to send an error or success because we will genera
 the methods callbacks/middlewares/validators/controllers using `Boom` or `Ok`. It will be explained in the following lines inside the Flow control section. You can remove this middleware inside `server.js`.
 
 ### Form validation
-The form validation middleware (see Post's 'CreateForm' for examples) validates all the required parameters for the request using Joi. If there's an error, generate the error with `Boom`. Then use `next()` even if there's no errors and you will continue the execution to the next middleware.
+The form validation middleware (see Post's 'Form.Create' for examples) validates all the required parameters for the request using Joi. If there's an error, generate the error with `Boom`. Then use `next()` even if there's no errors and you will continue the execution to the next middleware.
 
 ### Flow control
 All the middlewares must start with:

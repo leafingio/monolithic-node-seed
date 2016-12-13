@@ -12,6 +12,7 @@ exports.Create = (req, res, next)  => {
     });
     // Change for pull request
     newPost.save((err) => {
+        /* istanbul ignore if */
         if (err) Boom.badRequest(req, `${err.name} - ${err.message}`, err.errors);
         else Ok(req, newPost);
         next();

@@ -1,7 +1,8 @@
 module.exports = function(app) {
+    /* istanbul ignore next */
     if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_LOGS'] == 'true') {
         var morgan = require('morgan');
-
+        /* istanbul ignore if */
         if(process.env.SERVER_ENVIRONMENT == 'dev') app.use(morgan('dev'));
         else {
             var fs = require('fs');

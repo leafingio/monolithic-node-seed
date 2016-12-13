@@ -41,7 +41,9 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(400)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                        /* istanbul ignore if */
                         if(res.body.data[0].message != '"password" is required' ) throw new Error('Should respond "password" is required')
                     })
                     .end(done)
@@ -53,7 +55,9 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(400)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                        /* istanbul ignore if */
                         if(res.body.data[0].message != '"value" must contain at least one of [username, email]' ) throw new Error('Should respond "value" must contain at least one of [username, email]')
                     })
                     .end(done)
@@ -81,6 +85,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(400)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
                     })
                     .end(done)
@@ -92,6 +97,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(400)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
                     })
                     .end(done)
@@ -103,6 +109,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(400)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
                     })
                     .end(done)
@@ -161,6 +168,14 @@ describe('- Users -', function () {
                     .expect(409)
                     .end(done)
             });
+            it('should respond conflict', function (done) {
+                request(app)
+                    .post('/api/auth/signup')
+                    .send({username: 'Test', password: 'pass'})
+                    .expect('Content-Type', 'application/json; charset=utf-8')
+                    .expect(409)
+                    .end(done)
+            });
             it('should not insert a record to the database', function (done) {
                 User.count(function (err, cnt) {
                 cnt.should.equal(count);
@@ -181,7 +196,9 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(400)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                        /* istanbul ignore if */
                         if(res.body.data[0].message != '"password" is required' ) throw new Error('Should respond "password" is required')
                     })
                     .end(done)
@@ -193,7 +210,9 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(400)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                        /* istanbul ignore if */
                         if(res.body.data[0].message != '"value" must contain at least one of [username, email]' ) throw new Error('Should respond "value" must contain at least one of [username, email]')
                     })
                     .end(done)
@@ -208,6 +227,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(401)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.data != 'Incorrect username or password' ) throw new Error('Should respond Incorrect username or password')
                     })
                     .end(done)
@@ -219,6 +239,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(401)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.data != 'Incorrect email or password' ) throw new Error('Should respond Incorrect email or password')
                     })
                     .end(done)
@@ -230,6 +251,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(401)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.data != 'Incorrect username or password' ) throw new Error('Should respond Incorrect username or password')
                     })
                     .end(done)
@@ -241,6 +263,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(401)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.data != 'Incorrect email or password' ) throw new Error('Should respond Incorrect email or password')
                     })
                     .end(done)
@@ -256,6 +279,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(200)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(!res.body.data.token) throw new Error('Should respond token and refreshToken')
                         else{
                             token = res.body.data.token
@@ -299,7 +323,9 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(401)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                        /* istanbul ignore if */
                         if(res.body.data[0].message != '"authorizationHeader" is required' ) throw new Error('Should respond "authorizationHeader" is required')
                     })
                     .end(done)
@@ -314,6 +340,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(401)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'jwt malformed' ) throw new Error('Should respond jwt malformed')
                     })
                     .end(done)
@@ -325,6 +352,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(401)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(res.body.message != 'An access token can not be used as an refresh token' ) throw new Error('Should respond An access token can not be used as an refresh token.')
                     })
                     .end(done)
@@ -339,6 +367,7 @@ describe('- Users -', function () {
                     .expect('Content-Type', 'application/json; charset=utf-8')
                     .expect(200)
                     .expect(function(res){
+                        /* istanbul ignore if */
                         if(!res.body.data.token) throw new Error('Should respond token and refreshToken')
                     })
                     .end(done)

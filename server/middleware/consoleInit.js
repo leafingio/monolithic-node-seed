@@ -1,5 +1,6 @@
 var chalk = require('chalk');
 
+/* istanbul ignore next */
 module.exports = function () {
 	console.log(chalk.bold.underline.green('Server is now listening at port ', process.env[process.env.SERVER_ENVIRONMENT + '_PORT']));
 	console.log(chalk.cyan.bold('- Environment', process.env.SERVER_ENVIRONMENT));

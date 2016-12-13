@@ -23,7 +23,9 @@ describe('- Posts -', function () {
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(400)
             .expect(function(res){
+                /* istanbul ignore if */
                 if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                /* istanbul ignore if */
                 if(res.body.data[0].message != '"title" is required' ) throw new Error('Should respond "title" is required')
             })
             .end(done)
@@ -35,7 +37,9 @@ describe('- Posts -', function () {
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(400)
             .expect(function(res){
+                /* istanbul ignore if */
                 if(res.body.message != 'ValidationError') throw new Error("Should respond ValidationError");
+                /* istanbul ignore if */
                 if(res.body.data[0].message != '"text" is required' ) throw new Error('Should respond "text" is required')
             })
             .end(done)
@@ -63,6 +67,14 @@ describe('- Posts -', function () {
             .send({title: 'Titulo', text: 'Texto'})
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(200)
+            .end(done)
+      });
+      it('should respond ok', function (done) {
+        request(app)
+            .post('/api/posts')
+            .send({title: 'Titulo', text: 'Texto'})
+            .expect('Content-Type', 'application/json; charset=utf-8')
+            .expect(409)
             .end(done)
       });
 

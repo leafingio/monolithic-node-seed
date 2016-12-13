@@ -22,26 +22,22 @@ var tokenConstants = {
 
 exports.isUnique = (req, res, next) => {
 	if(!req.error){
-		var query = {}
-		if(!req.body.username && !req.body.email) next()
-		else {
-			if(req.body.email) query = { email: req.body.email }
-			else query = { username: req.body.username }
-			User.findOne({
-			$or: [
-				{ username: req.body.username },
-				{ email: req.body.email },
-			],}, function(err, user) {
-				if (!err) {
-					if (user) {
-						if (user.username === req.body.username) Boom.conflict(req, 'Username already exists', {})
-						if (user.email === req.body.email) Boom.conflict(req, 'Email already exists', {})
-					}
-				} else Boom.badImplementation(req, 'Internal server error', {});
+		User.findOne({
+		$or: [
+			{ username: req.body.username },
+			{ email: req.body.email },
+		],}, function(err, user) {
+			/* istanbul ignore if */
+			if (err) Boom.badImplementation(req, 'Internal server error', {});
+			else {
+				if (user) {
+					if (user.username === req.body.username) Boom.conflict(req, 'Username already exists', {})
+					if (user.email === req.body.email) Boom.conflict(req, 'Email already exists', {})
+				}
+			} 
 
-				next();
-			});
-		}
+			next();
+		});
 	} else next();
 };
 
@@ -78,6 +74,7 @@ exports.isToken = (req, res, next) => {
 exports.existsToken = (req, res, next) => {
 	if(!req.error && req.verified){
 		User.findById(req.verified.id, function (err, user) {
+			/* istanbul ignore if */
 			if (err) Boom.badImplementation(req, 'Internal server error');
 			if (!user) Boom.notFound(req, 'User not found');
 			if (req.verified.userVersion !== user.__v) Boom.unauthorized(req, 'Unauthorized');

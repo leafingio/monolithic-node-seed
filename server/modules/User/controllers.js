@@ -15,6 +15,7 @@ var tokenConstants = {
 passport.use('username', new LocalStrategy(
 	function (username, password, done) {
 		User.findOne({ username: username }, function (err, user) {
+			/* istanbul ignore if */
 			if (err) { return done(err); }
 
 			if (!user) return done('Incorrect username or password');
@@ -22,8 +23,6 @@ passport.use('username', new LocalStrategy(
 			.then(function (result) {
 				if (result) return done(null, user);
 				else done('Incorrect username or password');
-			}).catch(function (err) {
-				return done(err, null);
 			});
 		});
 	}
@@ -32,14 +31,13 @@ passport.use('username', new LocalStrategy(
 passport.use('email', new LocalStrategy(
 	function (username, password, done) {
 		User.findOne({ email: username }, function (err, user) {
+			/* istanbul ignore if */
 			if (err) return done(err);
 			if (!user) return done('Incorrect email or password');
 			user.validPassword(password)
 			.then(function (result) {
 				if (result) return done(null, user);
 				else done('Incorrect email or password');
-			}).catch(function (err) {
-				return done(err, null);
 			});
 		});
 	}
@@ -54,6 +52,7 @@ exports.Create = (req, res, next) => {
 		});
 
 		newUser.save(function(err) {
+			/* istanbul ignore if */
 			if (err) Boom.badImplementation(req, 'Internal server error', err.errors)
 			else Ok(req, newUser);
 			next();
@@ -61,7 +60,7 @@ exports.Create = (req, res, next) => {
 	} else next();
 };
 
-exports.SignTokens = (req, res, next) => {
+exports.CreateTokens = (req, res, next) => {
 	if(!req.error){
 		var token = jwt.sign({
 			id: req.user.id,
@@ -82,17 +81,10 @@ exports.SignTokens = (req, res, next) => {
 			refreshToken: refreshToken,
 		};
 
-		req.data = data;
+		Ok(req, data);
 		next();
 	} else next();
 };
 
-exports.SendTokens = (req, res, next) => {
-	if(!req.error){
-		if (req.data) Ok(req, req.data);
-		else Boom.badImplementation(req, 'Internal server error');
-		next()
-	} else next();
-};
 
 
