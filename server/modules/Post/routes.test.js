@@ -69,6 +69,14 @@ describe('- Posts -', function () {
             .expect(200)
             .end(done)
       });
+      it('should respond ok', function (done) {
+        request(app)
+            .post('/api/posts')
+            .send({title: 'Titulo', text: 'Texto'})
+            .expect('Content-Type', 'application/json; charset=utf-8')
+            .expect(409)
+            .end(done)
+      });
 
       it('should insert a record to the database', function (done) {
         Post.count(function (err, cnt) {

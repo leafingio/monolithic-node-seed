@@ -22,9 +22,6 @@ var tokenConstants = {
 
 exports.isUnique = (req, res, next) => {
 	if(!req.error){
-		var query = {}
-		if(req.body.email) query = { email: req.body.email }
-		else query = { username: req.body.username }
 		User.findOne({
 		$or: [
 			{ username: req.body.username },
