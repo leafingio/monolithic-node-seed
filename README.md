@@ -46,6 +46,7 @@ enable or disable and some others that eliminates boilerplate during development
 3. Go to [http://localhost:8080/api](http://localhost:8080/api) for REST api
 4. Go to [http://localhost:8080/docs](http://localhost:8080/docs) for api documentation
 5. Go to [http://localhost:8080/coverage](http://localhost:8080/coverage) for api test coverage
+6. Go to [http://localhost:8080/graphql](http://localhost:8080/graphql) for graphql in-browser IDE
 
 ## Project structure
 The project structure i have chosen the pythonic (Django) style. That means that you can build modules
@@ -128,6 +129,7 @@ The form validation middleware (see Post's 'Form.Create' for examples) validates
 ### Emails
 You can send emails using your preferred transport. I have configured a stub transport for development and testing purposes, AWS SES transport and Gmail transport.
 Modify the environment variables as you want such as transport to use in environments or credentials.
+You can use handlebars templates with emails. See signup example.
 
 #### Email Method
 Import with rootRequire the leafing libraries and use the email library to send emails.
@@ -149,7 +151,7 @@ The accepted parameter is an object with the following keys:
 See [nodemailer](https://www.npmjs.com/package/nodemailer) for more information 
 
 #### Email Middleware
-Using the Email module controllers you can create easily middlewares that use the send email method. See signup for examples
+Using the Email module controllers you can create middlewares easily that use the send email method. See signup for examples
 
 ### Flow control
 All the middlewares must start with:
