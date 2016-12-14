@@ -24,6 +24,7 @@ enable or disable and some others that eliminates boilerplate during development
 * Joi (Post and get parameters validation)
 * Boom (Own wrapper for error objects)
 * Ok (Success objects)
+* Emails (using nodemon)
 * Mocha (tests)
 * Istanbul (code coverage)
 * Travis CI
@@ -45,6 +46,7 @@ enable or disable and some others that eliminates boilerplate during development
 3. Go to [http://localhost:8080/api](http://localhost:8080/api) for REST api
 4. Go to [http://localhost:8080/docs](http://localhost:8080/docs) for api documentation
 5. Go to [http://localhost:8080/coverage](http://localhost:8080/coverage) for api test coverage
+6. Go to [http://localhost:8080/graphql](http://localhost:8080/graphql) for graphql in-browser IDE
 
 ## Project structure
 The project structure i have chosen the pythonic (Django) style. That means that you can build modules
@@ -123,6 +125,33 @@ the methods callbacks/middlewares/validators/controllers using `Boom` or `Ok`. I
 
 ### Form validation
 The form validation middleware (see Post's 'Form.Create' for examples) validates all the required parameters for the request using Joi. If there's an error, generate the error with `Boom`. Then use `next()` even if there's no errors and you will continue the execution to the next middleware.
+
+### Emails
+You can send emails using your preferred transport. I have configured a stub transport for development and testing purposes, AWS SES transport and Gmail transport.
+Modify the environment variables as you want such as transport to use in environments or credentials.
+You can use handlebars templates with emails. See signup example.
+
+#### Email Method
+Import with rootRequire the leafing libraries and use the email library to send emails.
+The accepted parameter is an object with the following keys:
+```javascript
+{
+  from: '', /* if not specified it will use the default
+             environment variable set for email */
+  to: '', /* an email or multiple emails in a string 
+           (f.e 'something@leafing.io, something2@leafing.io') */
+  cc: '',
+  bcc: '',
+  subject: '',
+  text: '',
+  html: '',
+  attachments: ''
+}
+```
+See [nodemailer](https://www.npmjs.com/package/nodemailer) for more information 
+
+#### Email Middleware
+Using the Email module controllers you can create middlewares easily that use the send email method. See signup for examples
 
 ### Flow control
 All the middlewares must start with:

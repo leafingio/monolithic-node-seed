@@ -10,7 +10,7 @@ exports.Create = (req, res, next) => {
   Joi.validate({
     title: req.body.title,
     text: req.body.text,
-  }, createSchema, function (err, value) {
+  }, createSchema, (err, value) => {
     if(err) Boom.badRequest(req, err.name, err.details);
     next();
   });

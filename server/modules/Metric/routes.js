@@ -5,7 +5,7 @@ var Controllers = require('./controllers');
 var UserControllers = require('../User/controllers');
 var UserValidators = require('../User/validators');
 
-module.exports = function () {
+module.exports = () => {
 
 	router.post('/', 
 		Forms.Create, 

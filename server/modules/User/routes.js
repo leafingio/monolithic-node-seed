@@ -4,12 +4,14 @@ var router = express.Router();
 var Validators = require('./validators');
 var Forms = require('./forms');
 var Controllers = require('./controllers');
+var EmailControllers = moduleRequire('Email/controllers');
 
-module.exports = function () {
+module.exports = () => {
     router.post('/signup',
         Forms.Create,
         Validators.isUnique,
-        Controllers.Create
+        Controllers.Create,
+        EmailControllers.Signup
     );
 
     router.post('/login',

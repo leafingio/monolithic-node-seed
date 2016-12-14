@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = (app) => {
     /* istanbul ignore next */
     if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_LOGS'] == 'true') {
         var morgan = require('morgan');

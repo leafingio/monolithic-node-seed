@@ -1,7 +1,7 @@
 var chalk = require('chalk');
 
 /* istanbul ignore next */
-module.exports = function () {
+module.exports = () => {
 	console.log(chalk.bold.underline.green('Server is now listening at port ', process.env[process.env.SERVER_ENVIRONMENT + '_PORT']));
 	console.log(chalk.cyan.bold('- Environment', process.env.SERVER_ENVIRONMENT));
 	if(process.env[process.env.SERVER_ENVIRONMENT + '_FEATURE_API'] == 'true') console.log(chalk.cyan('- API', 'Activated'));

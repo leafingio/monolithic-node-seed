@@ -1,3 +1,3 @@
-module.exports = function(app){    
+module.exports = (app) => {    
     app.use(require('helmet')());
 }

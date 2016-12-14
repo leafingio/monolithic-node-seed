@@ -6,7 +6,7 @@ var Post = require('./schemas');
 
 exports.isUnique = (req, res, next) => {
 	if(!req.error){
-		Post.findOne({title: req.body.title}, function(err, post) {
+		Post.findOne({title: req.body.title}, (err, post) => {
 			/* istanbul ignore if */
 			if (err) Boom.badImplementation(req, 'Internal server error', {});
 			else {

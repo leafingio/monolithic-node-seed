@@ -26,7 +26,7 @@ exports.isUnique = (req, res, next) => {
 		$or: [
 			{ username: req.body.username },
 			{ email: req.body.email },
-		],}, function(err, user) {
+		],}, (err, user) => {
 			/* istanbul ignore if */
 			if (err) Boom.badImplementation(req, 'Internal server error', {});
 			else {
@@ -43,7 +43,7 @@ exports.isUnique = (req, res, next) => {
 
 exports.isRefreshToken = (req, res, next) => {
 	if(!req.error){
-		jwt.verify(req.header('Authorization'), process.env.SERVER_SECRET, function (err, verified) {
+		jwt.verify(req.header('Authorization'), process.env.SERVER_SECRET, (err, verified) => {
 			if (err) Boom.unauthorized(req, err.message, err );
 			else {
 				if (verified.type === tokenConstants.TYPES.ACCESS_TOKEN)
@@ -58,7 +58,7 @@ exports.isRefreshToken = (req, res, next) => {
 exports.isToken = (req, res, next) => {
 	if(!req.error){
 		if(req.header('Authorization')){
-			jwt.verify(req.header('Authorization'), process.env.SERVER_SECRET, function (err, verified) {
+			jwt.verify(req.header('Authorization'), process.env.SERVER_SECRET, (err, verified) => {
 				if (err) Boom.unauthorized(req, err.message, err); 
 				else {
 					if (verified.type === tokenConstants.TYPES.REFRESH_TOKEN)
@@ -73,7 +73,7 @@ exports.isToken = (req, res, next) => {
 
 exports.existsToken = (req, res, next) => {
 	if(!req.error && req.verified){
-		User.findById(req.verified.id, function (err, user) {
+		User.findById(req.verified.id, (err, user) => {
 			/* istanbul ignore if */
 			if (err) Boom.badImplementation(req, 'Internal server error');
 			if (!user) Boom.notFound(req, 'User not found');
@@ -88,7 +88,7 @@ exports.existsToken = (req, res, next) => {
  exports.Authenticate = (req, res, next) => {
 	if(!req.error){
 		if (validator.isEmail(req.body.username)) {
-			passport.authenticate('email', function (err, user) {
+			passport.authenticate('email', (err, user) => {
 				if (err){
 					Boom.unauthorized(req, 'Unathorized', err);
 					next();
@@ -96,7 +96,7 @@ exports.existsToken = (req, res, next) => {
 				else req.logIn(user, { session: false }, next);
 			})(req, res, next);
 		} else {
-			passport.authenticate('username', function (err, user) {
+			passport.authenticate('username', (err, user) => {
 				if (err){
 					Boom.unauthorized(req, 'Unauthorized', err);
 					next();
