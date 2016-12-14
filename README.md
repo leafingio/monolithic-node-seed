@@ -24,7 +24,7 @@ enable or disable and some others that eliminates boilerplate during development
 * Joi (Post and get parameters validation)
 * Boom (Own wrapper for error objects)
 * Ok (Success objects)
-* Emails (using nodemon)
+* Emails (using nodemon and handlebars for templates)
 * Mocha (tests)
 * Istanbul (code coverage)
 * Travis CI
