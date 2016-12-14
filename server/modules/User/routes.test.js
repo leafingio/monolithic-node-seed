@@ -144,10 +144,10 @@ describe('- Users -', function () {
                 })
             });
             it('should save the user to the database', function (done) {
-                User.findOne({username : 'Test'}).exec(function (err, user) {
+                User.findOne({username : 'test'}).exec(function (err, user) {
                 should.not.exist(err);
                 user.should.be.an.instanceOf(User);
-                user.username.should.equal('Test');
+                user.username.should.equal('test');
                 done()
                 })
             })
