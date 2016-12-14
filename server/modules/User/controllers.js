@@ -13,14 +13,14 @@ var tokenConstants = {
 };
 
 passport.use('username', new LocalStrategy(
-	function (username, password, done) {
+	(username, password, done) => {
 		User.findOne({ username: username }, function (err, user) {
 			/* istanbul ignore if */
 			if (err) { return done(err); }
 
 			if (!user) return done('Incorrect username or password');
 			user.validPassword(password)
-			.then(function (result) {
+			.then(result => {
 				if (result) return done(null, user);
 				else done('Incorrect username or password');
 			});
@@ -35,7 +35,7 @@ passport.use('email', new LocalStrategy(
 			if (err) return done(err);
 			if (!user) return done('Incorrect email or password');
 			user.validPassword(password)
-			.then(function (result) {
+			.then(result => {
 				if (result) return done(null, user);
 				else done('Incorrect email or password');
 			});
@@ -51,10 +51,13 @@ exports.Create = (req, res, next) => {
 			password: req.body.password,
 		});
 
-		newUser.save(function(err) {
+		newUser.save(err => {
 			/* istanbul ignore if */
 			if (err) Boom.badImplementation(req, 'Internal server error', err.errors)
-			else Ok(req, newUser);
+			else{
+				req.user = newUser;
+				Ok(req, newUser);
+			} 
 			next();
 		});
 	} else next();

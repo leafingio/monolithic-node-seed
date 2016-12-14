@@ -1,4 +1,4 @@
-function createError(req, statusCode, error, message, data) {
+var createError = (req, statusCode, error, message, data) => {
   req.error = {
     statusCode,
     error,

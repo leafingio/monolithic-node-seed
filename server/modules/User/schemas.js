@@ -26,7 +26,7 @@ userSchema.plugin(uniqueValidator);
 userSchema.methods.validPassword = function (password) {
 	return bcrypt
 	.compareAsync(password, this.password)
-	.then(function (result, err) {
+	.then((result, err) => {
 		/* istanbul ignore if */
 		if (err) throw new Error(err);
 		return result;

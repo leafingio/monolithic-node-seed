@@ -16,7 +16,7 @@ exports.Create = (req, res, next) => {
     username: req.body.username,
     password: req.body.password,
     email: req.body.email
-  }, createSchema, function (err, value) {
+  }, createSchema, (err, value) => {
     if(err) Boom.badRequest(req, err.name, err.details);
     next();
   });
@@ -27,7 +27,7 @@ exports.Login = (req, res, next) => {
     username: req.body.username,
     password: req.body.password,
     email: req.body.email
-  }, createSchema, function (err, value) {
+  }, createSchema, (err, value) => {
     if(err) Boom.badRequest(req, err.name, err.details);
     next();
   });
@@ -36,7 +36,7 @@ exports.Login = (req, res, next) => {
 exports.Refresh = (req, res, next) => {
   Joi.validate({
     authorizationHeader: req.header('Authorization'),
-  }, authorizationSchema, function (err, value) {
+  }, authorizationSchema, (err, value) => {
     if(err) Boom.unauthorized(req, err.name, err.details);
     next();
   });

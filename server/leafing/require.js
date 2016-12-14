@@ -1,7 +1,3 @@
-global.rootRequire = function(name) {
-	return require(`../${name}`);
-};
+global.rootRequire = (name) => require(`../${name}`);
 
-global.moduleRequire = function(name) {
-	return require(`../modules/${name}`);
-};
+global.moduleRequire = (name) => require(`../modules/${name}`);
