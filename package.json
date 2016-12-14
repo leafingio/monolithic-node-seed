@@ -19,7 +19,7 @@
   "author": "leafingio",
   "license": "none",
   "dependencies": {
-    "@risingstack/graffiti": "^3.2.0",
+    "@risingstack/graffiti": "^3.3.0",
     "@risingstack/graffiti-mongoose": "^5.3.0",
     "async": "^2.1.4",
     "bcryptjs": "^2.3.0",

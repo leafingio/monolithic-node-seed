@@ -3,6 +3,7 @@
 [![codecov](https://codecov.io/gh/leafingio/node-seed/branch/master/graph/badge.svg)](https://codecov.io/gh/leafingio/node-seed)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![License](http://img.shields.io/:license-MIT-blue.svg)](http://doge.mit-license.org)
+[![NSP Status](https://nodesecurity.io/orgs/leafing/projects/b75a1675-eaed-4179-ae72-990f7961d06c/badge)](https://nodesecurity.io/orgs/leafing/projects/b75a1675-eaed-4179-ae72-990f7961d06c)
 
 NodeJS API seed built with great features.
 
